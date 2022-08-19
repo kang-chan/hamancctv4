@@ -1,6 +1,9 @@
 
 
 
+
+
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -10,6 +13,15 @@
     
     <style>
  html, body {width:100%;height:100%;margin:0;padding:0;overflow: hidden}
+        
+        
+
+
+#menu_wrap {position:absolute;top:13;right:5;bottom:48;width:180px;margin:3px 0 5px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.8);z-index: 1;font-size:12px;border-radius: 0px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+        
     </style>
 <body>
 
@@ -19,7 +31,13 @@
 
 
 <div id="map" style="width:100%;height:100%;"></div>
+    
+    
 <script>
+    
+    
+    
+    
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(35.2725308711779, 128.406307024695
@@ -31,6 +49,44 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 // 자바스트립트 삽입공간 시작
 
+
+function setShowList1() {
+        menu_wrap.style.visibility='visible';
+        btnTitleList.className = 'selected_btn';
+        btnTitleListHide.className = 'btn';      
+}  
+
+function setShowList2() {
+		menu_wrap.style.visibility='hidden';
+        btnTitleList.className = 'btn';
+        btnTitleListHide.className = 'selected_btn';      
+}  
+
+    
+function setCenter(Lat, Lng) {            
+    // 이동할 위도 경도 위치를 생성합니다 
+    var moveLatLon = new daum.maps.LatLng(Lat, Lng);
+  
+    // 지도 중심을 이동 시킵니다
+    map.panTo(moveLatLon);
+var circle = new daum.maps.Circle({
+    center : new daum.maps.LatLng(Lat,  Lng),  // 원의 중심좌표 입니다 
+    radius: 100, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 1, // 선의 두께입니다 
+    strokeColor: '#ffa500', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#FF0000', // 채우기 색깔입니다
+    fillOpacity: 0.3  // 채우기 불투명도 입니다   
+}); 
+
+// 지도에 원을 표시합니다 
+circle.setMap(map);     
+setTimeout(function(){
+circle.setMap(null);    ;
+}, 2000);        
+    
+}
 
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 var mapTypeControl = new kakao.maps.MapTypeControl();
@@ -548,6 +604,8 @@ var positions = [
 
 ];
 
+    
+    
 for (var i = 0; i < positions.length; i ++) {
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
@@ -610,8 +668,24 @@ for (var i = 0; i < positions.length; i ++) {
 */
   
 </script>
-
+<div id="menu_wrap" class="bg_white" style="border:1px solid #919191;border-radius:10px;">
+<div  style="cursor: pointer;" onClick="setCenter(33.497253953,126.545209174)" id=tchk1>1.소화전</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.491486283,126.548194527)" id=tchk2>2.띠앗어린이집</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.49016973,126.548524301)" id=tchk3>3.보현어린이집</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.489137087,126.548206445)" id=tchk4>4.튼튼어린이집</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.499248810,126.544804529)" id=tchk5>5.크린하우스</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.508516212,126.561608107)" id=tchk6>6.요요어린이집</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.508010568,126.561530418)" id=tchk7>7.동그라미어린이집</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.507659617,126.564487143)" id=tchk8>8.마야어린이집</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.518118349,126.5793428)" id=tchk9>9.프라임국제어린이집</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.515392771,126.579817379)" id=tchk10>10.아이꿈별어린이집</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.513229441,126.582713251)" id=tchk11>11.CCTV</div>
+<div  style="cursor: pointer;" onClick="setCenter(33.509410261,126.541789402)" id=tchk12>12.한라어린이집</div>
+</div>
 
 
 </body>
 </html>
+
+
+
