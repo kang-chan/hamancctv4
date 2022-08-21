@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,6 +21,7 @@
 
     </style>
 <body>
+
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2634b7b6dd61e41a4d6c0bf40a2ef820"></script>
@@ -90,9 +92,6 @@ var mapTypeControl = new kakao.maps.MapTypeControl();
 map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
 
 
-
-
-// 자바스트립트 삽입공간입니다 끝 
 
 
 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
@@ -798,9 +797,11 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     marker1.setPosition(latlng);
 
     //alert(message);
-
+// 좌표 input에 좌표 넣기
     $('#gpsyx').val(latlng.getLat() + ', ' + latlng.getLng());  
 
+    //
+    
 
 });
 
@@ -808,7 +809,8 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     
 </script>
 
-    
+    <!-- 2-2. input:text 태그 -->
+    <button id="btn_input_copy" style= "position:absolute;top:12;width:50;right:285;z-index:200">복사</button>
  <input type="text" class='form-control' style= "position:absolute;top:13;width:270;right:10;z-index:20" id = "gpsyx" value ="35.2725308711779, 128.406307024695"></button>
 
     
@@ -914,6 +916,8 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
  
 <script>
 
+
+        
 function save_PC(num)
 {
 
@@ -1147,4 +1151,12 @@ var formControl = document.getElementsByClassName('form-control');
 </script>
 
 </body>
+    <script>
+     // 2-2. input:text 복사
+    document.getElementById("btn_input_copy").onclick = function(){
+        const input_text = document.getElementById("gpsyx");
+        gpsyx.select();
+        document.execCommand('copy');
+    }
+    </script>
 </html>
