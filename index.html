@@ -747,6 +747,7 @@ for (var i = 0; i < positions.length; i ++) {
         btnsearch_click();  // 실행할 이벤트
     }
 }
+    
  function doClick(element) {
 	divText = $(element).html();
   $('#status').html('You clicked on: ' + divText);
@@ -765,21 +766,23 @@ $(()=>{
       evt.currentTarget.click();         // Run the click event for element
     }
   });
-  
+ 			
+  // activate the first clickable div
 
 });
+ 
 	
 </script>
 <div id="menu_wrap" class="bg_white" style="border:1px solid #919191;border-radius:10px;">
 <div id="input-form">
 <img src="https://ajubang.com/mm/op/m/search.png" style="margin-top: 11px; margin-right: 3px;vertical-align: bottom">
-    <input type="text" id="keyword" onkeydown='Enter_Check();' style="width:90px" autofocus /><span>
-    <span><button tabindex="-1" onclick="btnsearch_click()" style="vertical-align: bottom" class="bsuccess">이동</button></span><span class="count"></span>
+    <input tabindex="1" type="text" id="keyword" onkeydown='Enter_Check();' style="width:90px" autofocus /><span>
+    <span><button tabindex="-1" onclick="btnsearch_click()" style="vertical-align: bottom" class="bsuccess" >이동</button></span><span class="count"></span>
 </div>
     
+   
     
-    
-    <div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.2664543016422, 128.3987470300827)' id='tchk1'>01_가야읍01_도음_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.2664543016422, 128.3987470300827)' id='tchk1'>01_가야읍01_도음_요청지</div>
 <div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.30006899391689, 128.4043603721634)' id='tchk2'>02_가야읍02_도화_요청지</div>
 <div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.257865840432764, 128.4095762356313)' id='tchk3'>03_가야읍03_백산_요청지</div>
 <div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.267003587961874, 128.42370292277178)' id=tchk1>04_가야읍04_상검_요청지</div>
