@@ -1,41 +1,1063 @@
 
-<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>지도 생성하기 - Kakao 지도 Web API</title><link href="https://apis.map.kakao.com/favicon.ico" rel="shortcut icon"><meta name="viewport" content="width=720"><meta property="og:type" content="website"><meta property="og:title" content="Kakao 지도 API"><meta property="og:description" content="Kakao 지도 API를 이용해보세요. 다양한 샘플과 상세한 매뉴얼로 개발자분들의 시간을 아껴드리겠습니다!"><meta property="og:image" content="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/daumMapsApi.png"><meta property="og:url" content="https://apis.map.kakao.com"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Kakao 지도 API"><meta name="twitter:description" content="Kakao 지도 API를 이용해보세요. 다양한 샘플과 상세한 매뉴얼로 개발자분들의 시간을 아껴드리겠습니다!"><meta name="twitter:image" content="https://apis.map.kakao.com/images/daumMapsApiThumb.png"><meta name="twitter:url" content="https://apis.map.kakao.com"><link rel="stylesheet" type="text/css" href="//t1.daumcdn.net/mapapisdoc/cssjs/1657160418816/css/service.min.css"><script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=326e38503f420e1f0088dab1f46dc0c7&libraries=services,clusterer,drawing"></script><script type="text/javascript" src="//s1.daumcdn.net/svc/original/U03/cssjs/jquery/jquery-1.11.0.js"></script><script type="text/javascript" src="//s1.daumcdn.net/svc/original/U0301/cssjs/JSON-js/fc535e9cc8/json2.min.js"></script></head><body class="web sample_snippet" data-page_section="web" data-page_type="sample_snippet" data-title="지도 생성하기"><div id="daumGnb"><h1 id="logo"><a href="/"><div class="kakao">Kakao</div>Maps API</a></h1><ul id="gnbMenu"><li id="menuAbout" class=""><a href="/web/"><svg viewbox="0 0 86 42"><path fill="#302A24" d="M54.6,26.3l-10.8-11c-0.2-0.2-0.5-0.2-0.8-0.1c-0.2-0.1-0.6-0.1-0.8,0.1l-10.8,11c-0.3,0.3-0.3,0.7,0,1c0.3,0.3,0.7,0.3,0.9,0L43,16.5l10.7,10.8c0.3,0.3,0.7,0.3,0.9,0C54.9,27,54.9,26.6,54.6,26.3z M36,26.1c-0.4,0-0.7,0.3-0.7,0.7v9.4c0,0.4,0.3,0.7,0.7,0.7s0.7-0.3,0.7-0.7v-9.4C36.6,26.4,36.3,26.1,36,26.1z M50,26.1c-0.4,0-0.7,0.3-0.7,0.7v9.4c0,0.4,0.3,0.7,0.7,0.7s0.7-0.3,0.7-0.7v-9.4C50.7,26.4,50.4,26.1,50,26.1z M40.7,28.1c-0.4,0-0.7,0.3-0.7,0.7v6.7h-2.7c-0.4,0-0.7,0.3-0.7,0.7c0,0.4,0.3,0.7,0.7,0.7h3.4c0.4,0,0.7-0.3,0.7-0.7v-7.3C41.3,28.4,41,28.1,40.7,28.1z M48.7,35.5H46v-6.7c0-0.4-0.3-0.7-0.7-0.7H42c-0.4,0-0.7,0.3-0.7,0.7c0,0.4,0.3,0.7,0.7,0.7h2.7v6.7c0,0.4,0.3,0.7,0.7,0.7h3.4c0.4,0,0.7-0.3,0.7-0.7C49.4,35.8,49.1,35.5,48.7,35.5z"></path></svg> About</a></li><li id="menuGuide" class=""><a href="/web/guide"><svg viewbox="0 0 86 42"><path fill="#302A24" d="M52.5,19.4l-6-2.4c-0.3,0-0.5,0.1-0.8,0.2C45.5,17.1,45.3,17,45,17l-6,2.4c-0.3,0-0.5,0.1-0.8,0.2c-0.2-0.1-0.5-0.2-0.7-0.2l-6-2.4c-0.8,0-1.5,0.7-1.5,1.6v15.5c0,0.9,0.7,1.6,1.5,1.6l6,2.4c0.3,0,0.5-0.1,0.7-0.2c0.2,0.1,0.5,0.2,0.8,0.2l6-2.4c0.3,0,0.5-0.1,0.7-0.2c0.2,0.1,0.5,0.2,0.8,0.2l6,2.4c0.8,0,1.5-0.7,1.5-1.6V20.9C54,20.1,53.3,19.4,52.5,19.4z M37.5,36.4l-6-2.4V18.6l6,2.4V36.4z M45,34.1l-6,2.4V20.9l6-2.4V34.1z M52.5,36.4l-6-2.4V18.6l6,2.4V36.4z"></path></svg> Guide</a></li><li id="menuSample" class="selected"><a href="/web/sample"><svg viewbox="0 0 86 42"><path fill="#302A24" d="M40.1,32.5l1-1.1l-3.5-4h0.1c-1.5-1.4-2.5-3.3-2.5-5.6c0-4.1,3.3-7.4,7.4-7.4c4.1,0,7.4,3.3,7.4,7.4c0,2.2-1,4.2-2.5,5.6h0.1L42.5,33l0,0l-1,1.1l1,1.2l6.5-7.6c1.4-1.6,2.2-3.6,2.2-5.9c0-4.9-3.9-8.8-8.7-8.8c-4.8,0-8.7,3.9-8.7,8.8c0,2.3,0.9,4.4,2.3,5.9L40.1,32.5z M50.3,32H48l-1,1.4h2.4l2.3,4.2H33.3l2.3-4.2H38L37,32h-2.3L31,39h23L50.3,32z M46.2,21.8c0-2-1.6-3.7-3.7-3.7c-2,0-3.7,1.7-3.7,3.7s1.6,3.7,3.7,3.7C44.5,25.5,46.2,23.9,46.2,21.8z M40.2,21.8c0-1.3,1-2.3,2.3-2.3c1.3,0,2.3,1,2.3,2.3c0,1.3-1,2.3-2.3,2.3C41.2,24.1,40.2,23.1,40.2,21.8z"></path></svg> Sample</a></li><li id="menuDocs" class=""><a href="/web/documentation"><svg viewbox="0 0 86 42"><path fill="#302A24" d="M52.2,16H37c-0.5,0-0.8,0.4-0.8,0.8c0,0.5,0.4,0.8,0.8,0.8h14.3V32c0,0.5,0.4,0.8,0.8,0.8c0.5,0,0.8-0.4,0.8-0.8V16.8C53,16.4,52.6,16,52.2,16z M48.8,19.4H33.7c-0.2,0-0.3,0.1-0.4,0.1c-0.1-0.1-0.3-0.1-0.4-0.1c-0.5,0-0.8,0.4-0.8,0.8v16c0,0.5,0.4,0.8,0.8,0.8h16c0.5,0,0.8-0.4,0.8-0.8v-16C49.6,19.7,49.3,19.4,48.8,19.4z M48,35.3H33.7V21H48V35.3z M37,25.2h7.6c0.5,0,0.8-0.4,0.8-0.8c0-0.5-0.4-0.8-0.8-0.8H37c-0.5,0-0.8,0.4-0.8,0.8C36.2,24.9,36.6,25.2,37,25.2zM37,28.6h7.6c0.5,0,0.8-0.4,0.8-0.8c0-0.5-0.4-0.8-0.8-0.8H37c-0.5,0-0.8,0.4-0.8,0.8C36.2,28.2,36.6,28.6,37,28.6z M37,32h7.6c0.5,0,0.8-0.4,0.8-0.8s-0.4-0.8-0.8-0.8H37c-0.5,0-0.8,0.4-0.8,0.8S36.6,32,37,32z"></path></svg> Docs</a></li><li id="menuWizard" class=""><a href="/web/wizard"><svg viewbox="0 0 86 42"><path fill="#302A24" d="M55.1,39.8c-0.4,0.4-0.9,0.4-1.3,0.1L43.9,30c-0.3-0.3-0.3-0.9,0.1-1.3c0.4-0.4,0.9-0.4,1.3-0.1l9.9,9.9C55.5,38.9,55.5,39.5,55.1,39.8zM52.3,26.8l-7.8,2.4L42,37.1l-4.7-6.7l-8.2,0.1l4.9-6.6l-2.6-7.8l7.8,2.6l6.6-4.9l-0.1,8.2L52.3,26.8zM43.4,28.2l5.9-1.8l-5.1-3.6l0.1-6.2l-5,3.7l-5.9-2l2,5.9l-3.7,5L38,29l3.6,5.1L43.4,28.2z"></path></svg> Wizard</a></li><li id="menuNews" class=""><a href="/web/news"><svg viewbox="0 0 86 42"><path fill="#302A24" d="M45.9,38.5c-0.2,0-0.4-0.1-0.5-0.2l-3.7-3.6h-6.3c-3.6,0-6.5-2.8-6.5-6.2v-6.8c0-3.4,2.9-6.2,6.5-6.2h13.2c3.6,0,6.5,2.8,6.5,6.2v6.8c0,3.3-2.7,6-6.1,6.2l-2.5,3.5C46.4,38.3,46.2,38.4,45.9,38.5C46,38.4,45.9,38.5,45.9,38.5z M35.4,16.8c-2.8,0-5.1,2.1-5.1,4.8v6.8c0,2.6,2.3,4.8,5.1,4.8H42c0.2,0,0.4,0.1,0.5,0.2l3.2,3.1l2.2-3.1c0.1-0.2,0.4-0.3,0.6-0.3c2.8,0,5.1-2.1,5.1-4.8v-6.8c0-2.6-2.3-4.8-5.1-4.8L35.4,16.8L35.4,16.8zM39.2,20.4h1.5l3.7,6l0,0v-6h1.4v8.1h-1.5l-3.7-6l0,0v6h-1.4V20.4z"></path></svg> News</a></li></ul><ul id="gnbLink"><li id="linkQna"><a href="https://devtalk.kakao.com/c/map-api" target="_blank"><svg viewbox="0 0 34.4 31.5"><path fill="#EF4136" d="M21,16.6c-0.6-0.5-0.9-0.8-0.9-0.8s-3.9,2.5-6.6,2.5c-2.6,0-6.6-2.5-6.6-2.5s-2.6,2.5-5.3,3.7c-1.7,0.8-1.8,3.1-1.6,4.7c0,0.1,0,0.2,0,0.3c0,0.4,0.1,0.7,0.3,1.1c0,0.1,0,0.2,0,0.2h0C0.8,26.5,1.6,27,2.6,27H18c-0.3-0.9-0.5-2-0.5-3C17.5,21,18.9,18.4,21,16.6zM8.1,12.1c1.1,1.9,3,3.7,5.4,3.7c2.4,0,4.2-1.8,5.4-3.7h1.2l1.3-3.7l-1.3-1.2c0-0.3,0-0.4-0.1-0.5c0,0,0-0.1,0-0.1c0-0.2,0-0.4-0.1-0.6h0.1c0,0,0.1-2.7-1.3-3.7c-0.2-0.1-0.4-0.2-0.6-0.3C16.9,0.7,15.3,0,13.5,0C11.7,0,10,0.7,8.9,1.9C8.6,2,8.4,2.1,8.2,2.2C7.4,3,7,4.5,6.9,5.9c0,0.4,0,1.1,0,1.2L5.6,8.4l1.3,3.7H8.1z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M27,16.6c4.1,0,7.4,3.3,7.4,7.4s-3.3,7.4-7.4,7.4s-7.4-3.3-7.4-7.4S22.9,16.6,27,16.6z M26.9,29.6c-0.6,0-1.1-0.5-1.1-1.1c0-0.6,0.5-1.1,1.1-1.1s1.1,0.5,1.1,1.1C28,29.1,27.5,29.6,26.9,29.6zM27.9,26.8h-2v-0.1c0-0.9,0.1-1.5,0.3-2c0.2-0.4,0.5-0.8,1.1-1.4l0.5-0.5c0.2-0.2,0.3-0.4,0.4-0.6c0.1-0.2,0.1-0.5,0.1-0.6c0-0.4-0.1-0.8-0.3-1.1c-0.2-0.3-0.6-0.4-1-0.4c-1,0-1.5,0.7-1.5,2.1l0,0.1h-1.9v-0.1c0-1.1,0.3-2.1,0.9-2.7c0.6-0.7,1.5-1,2.5-1c1.1,0,1.9,0.3,2.5,0.9c0.6,0.6,0.8,1.3,0.8,2.2c0,0.6-0.2,1.1-0.5,1.6c-0.2,0.3-0.6,0.7-1.1,1.2c-0.6,0.6-0.9,1.4-0.9,2.4V26.8z"></path></svg> 문의하기</a></li><li id="linkKey"><a href="https://developers.kakao.com/console/app" target="_blank"><svg viewbox="0 0 35 35"><path fill-rule="evenodd" clip-rule="evenodd" fill="#EF4136" d="M17.5,0C27.2,0,35,7.8,35,17.5S27.2,35,17.5,35C7.8,35,0,27.2,0,17.5S7.8,0,17.5,0z M19.1,19.6L15.7,23h-2.2v2.2h-2.2v2.2H7.6v-3.7l7.8-7.9c-0.3-0.7-0.4-1.4-0.4-2.2c0-3.5,2.8-6.3,6.3-6.3s6.3,2.8,6.3,6.3S24.8,20,21.3,20C20.5,20,19.8,19.8,19.1,19.6L19.1,19.6L19.1,19.6z M25.4,11.8c0-1.2-1-2.2-2.2-2.2c-1.2,0-2.2,1-2.2,2.2s1,2.2,2.2,2.2C24.4,14,25.4,13,25.4,11.8L25.4,11.8z"></path></svg> 키발급</a></li><li id="linkWeb" class="selected"><a href="/web/"><svg viewbox="0 0 23.7 14.7"><path d="M8.3,12.3L0,8.2V6.2l8.3-4v2.6L3,7.2l5.3,2.6V12.3z M14.5,0L11,14.7H9.1L12.6,0L14.5,0z M23.7,8.2l-8.3,4.1V9.9l5.5-2.7l-5.5-2.8V2.1l8.3,4.1V8.2z"></path></svg> Web</a></li><li id="linkAndroid" class=""><a href="/android/"><svg viewbox="0 0 546.1 644.6"><path fill="#25B2DA" d="M546.1,417.1c-0.3,1.3-0.7,2.5-0.9,3.8c-3.2,20.8-21,34.6-43,33.3c-19.1-1.1-35.6-18.1-36-37.7c-0.4-23.5-0.2-47-0.2-70.5c0-32.8-0.2-65.6,0.1-98.4c0.2-19.1,13.5-34.9,31.7-38.6c21.9-4.4,42.7,9.4,47.1,31.2c0.3,1.6,0.8,3.2,1.2,4.8C546.1,302.4,546.1,359.7,546.1,417.1z M273.2,215.9c57.2,0,114.3,0,171.5,0c7.5,0,7.5,0,7.5,7.5c0,82.6,0,165.3,0,247.9c0,23.5-14.6,42.3-36.3,45.3c-9.3,1.3-19,0.5-28.4,0.5c-8.2,0.1-8.2,0-8.2,8.2c0,26.5,0.1,53,0,79.5c-0.1,16.6-9.8,30.5-25.4,36.7c-14.8,5.9-32.1,2.1-43.2-9.6c-7-7.5-10.7-16.3-10.7-26.7c0.1-27,0-54,0-81c0-7-0.2-7.1-6.9-7.1c-13.7,0-27.3,0.2-41-0.1c-4.7-0.1-6,1.6-6,6.1c0.2,27,0.3,54,0,81c-0.2,15.9-7.5,28.3-21.8,35.6c-13.8,7.1-27.8,6.2-40.7-2.6c-12-8.2-17.4-20.3-17.4-34.7c-0.1-25.8,0-51.7,0-77.5c0-7.8,0-7.8-8.1-7.8c-7.2,0-14.3,0-21.5,0c-23.5-0.1-42.5-18.6-42.5-42.1c-0.1-84.3,0-168.6-0.2-252.9c0-5.3,2.1-6.3,6.8-6.3C158.2,216,215.7,215.9,273.2,215.9z M272.6,202c-57,0-113.9,0-170.9,0c-8.6,0-8.3,0-7.9-8.7c1.9-34.5,14.4-64.8,36.4-91.2c13.8-16.5,29.9-30.4,48.9-40.6c5.8-3.1,5.9-3.2,2.7-9.1c-7.4-13.6-14.9-27.1-22.3-40.7c-3.2-5.9-3-9.3,0.1-11.1c3.4-1.8,6-0.1,9.3,5.8c7.8,14.3,15.8,28.6,23.4,43c2.1,4,4.5,3.4,7.8,2.1c23.5-9.8,48.2-14.3,73.6-14.2c24,0.1,47.4,4.4,69.7,13.3c7.7,3.1,7.6,3,11.7-4.5c7.4-13.6,14.9-27.2,22.3-40.7c0.3-0.6,0.6-1.2,1-1.8c1.8-3.2,4.5-4.6,7.9-2.8c3.3,1.8,3.2,4.8,1.6,7.8c-4.8,8.8-9.5,17.6-14.3,26.3c-3.5,6.4-6.9,12.9-10.6,19.2c-1.8,3-1.3,4.6,1.7,6.3c12.2,6.9,23.6,14.8,34.1,24.3c22.8,20.6,38.7,45.5,47.4,75c3.3,11.1,4.8,22.4,5.9,33.9c0.7,7.8,0.3,8.3-7.5,8.3C387.2,202,329.9,202,272.6,202z M339.3,121.7c0,9.3,6,15.4,15.2,15.4c8.6-0.1,15.4-6.7,15.4-15c0-8.3-7.4-15.8-15.6-15.7C345.9,106.5,339.3,113.3,339.3,121.7z M191.2,107.1c-9,0.1-15,6.1-15,15c0,8.6,6.7,15.1,15.3,14.9c8.5-0.2,14.7-6.4,14.7-15C206.2,113,200.2,107,191.2,107.1z M79.3,331.7c0,27.6,0,55.3,0,82.9c0,22.5-17.1,39.6-39.4,39.6c-22.4,0-39.8-17.1-39.8-39.4C0,359.3,0,303.7,0.1,248c0-21.1,15.2-37.6,36.5-39.8c19.3-2.1,38.1,12.3,42.1,32.1c0.6,2.7,0.6,5.6,0.6,8.4C79.3,276.4,79.3,304,79.3,331.7z"></path></svg> Android</a></li><li id="linkIos" class=""><a href="/ios/"><svg viewbox="0 0 284 334"><path fill="#25B2DA" d="M209,334c-2.7,0-5.3,0-8,0c-9.5-3.6-19-7.1-28.4-11c-14.7-6.1-29.6-4.9-44.3-0.9c-11,3-21.6,7.8-32.3,11.8c-2.7,0-5.3,0-8,0c-16-3.4-27.8-13.1-37.5-25.4c-7.5-9.5-14.3-19.6-20.4-30.1C8.3,240.6-2.6,200.3,4,156.3c3.6-23.7,13.8-44,32.1-59.7c13-11.2,28.4-16.6,45.5-17.8c15.9-1.1,30.5,3.5,45,9.1c12.4,4.8,24.6,5.7,37.2,0.4c5.8-2.4,11.9-4,17.9-5.9c22.6-7.2,44.8-6.5,66.2,4.4c10.7,5.5,19.1,13.5,26.4,23c-55.8,41.3-44.2,112.9,8.8,133.9c-7.7,19.3-16.4,38.1-28.2,55.3C243.3,315.6,230.1,329.9,209,334z M141.4,80.9c-2.3-43.3,30.4-76.2,66.2-77.6C212.5,40.8,177.3,82.8,141.4,80.9z"></path></svg> ios</a></li></ul></div><div id="daumBody" class="divided"><div class="panel_search"><div id="boxSearch"><input type="text" id="query" class="tf_query" title="검색어 입력" placeholder="sample name.." name="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"> <button type="button" class="btn_reset"><span class="ico_del">검색어 지우기</span></button><div type="button" class="btn_dummy_search"><span class="ico_sch">검색하기</span></div></div></div><div id="daumSubmenu"><div data-depth1="지도" class="first"><strong>지도</strong><ul><li data-depth2="지도 생성하기"><a class="on" href="/web/sample/basicMap/">지도 생성하기</a></li><li data-depth2="지도 이동시키기"><a href="/web/sample/moveMap/">지도 이동시키기</a></li><li data-depth2="지도 레벨 바꾸기"><a href="/web/sample/changeLevel/">지도 레벨 바꾸기</a></li><li data-depth2="지도 정보 얻어오기"><a href="/web/sample/mapInfo/">지도 정보 얻어오기</a></li><li data-depth2="지도에 컨트롤 올리기"><a href="/web/sample/addMapControl/">지도에 컨트롤 올리기</a></li><li data-depth2="지도에 사용자 컨트롤 올리기"><a href="/web/sample/addMapCustomControl/">지도에 사용자 컨트롤 올리기</a></li><li data-depth2="지도 이동 막기"><a href="/web/sample/disableMapDragMove/">지도 이동 막기</a></li><li data-depth2="지도 확대 축소 막기"><a href="/web/sample/enableDisableZoomInOut/">지도 확대 축소 막기</a></li><li data-depth2="지도에 교통정보 표시하기"><a href="/web/sample/addTrafficOverlay/">지도에 교통정보 표시하기</a></li><li data-depth2="지도에 로드뷰 도로 표시하기"><a href="/web/sample/addRoadviewOverlay/">지도에 로드뷰 도로 표시하기</a></li><li data-depth2="지도에 지형도 표시하기"><a href="/web/sample/addTerrainOverlay/">지도에 지형도 표시하기</a></li><li data-depth2="지도 타입 바꾸기1"><a href="/web/sample/changeOverlay1/">지도 타입 바꾸기1</a></li><li data-depth2="지도 타입 바꾸기2"><a href="/web/sample/changeOverlay2/">지도 타입 바꾸기2</a></li><li data-depth2="지도 범위 재설정 하기"><a href="/web/sample/setBounds/">지도 범위 재설정 하기</a></li><li data-depth2="지도 영역 크기 동적 변경하기"><a href="/web/sample/mapRelayout/">지도 영역 크기 동적 변경하기</a></li><li data-depth2="클릭 이벤트 등록하기"><a href="/web/sample/addMapClickEvent/">클릭 이벤트 등록하기</a></li><li data-depth2="클릭한 위치에 마커 표시하기"><a href="/web/sample/addMapClickEventWithMarker/">클릭한 위치에 마커 표시하기</a></li><li data-depth2="이동 이벤트 등록하기"><a href="/web/sample/addMapDragendEvent/">이동 이벤트 등록하기</a></li><li data-depth2="확대, 축소 이벤트 등록하기"><a href="/web/sample/addMapZoomChangedEvent/">확대, 축소 이벤트 등록하기</a></li><li data-depth2="중심좌표 변경 이벤트 등록하기"><a href="/web/sample/addMapCenterChangedEvent/">중심좌표 변경 이벤트 등록하기</a></li><li data-depth2="영역 변경 이벤트 등록하기"><a href="/web/sample/addMapBoundsChangedEvent/">영역 변경 이벤트 등록하기</a></li><li data-depth2="타일로드 이벤트 등록하기"><a href="/web/sample/addTilesloadedEvent/">타일로드 이벤트 등록하기</a></li><li data-depth2="커스텀 타일셋1"><a href="/web/sample/customTileset/">커스텀 타일셋1</a></li><li data-depth2="커스텀 타일셋2"><a href="/web/sample/getTile/">커스텀 타일셋2</a></li></ul></div><div data-depth1="오버레이" class=""><strong>오버레이</strong><ul><li data-depth2="마커 생성하기"><a href="/web/sample/basicMarker/">마커 생성하기</a></li><li data-depth2="드래그 가능한 마커 생성하기"><a href="/web/sample/draggableMarker/">드래그 가능한 마커 생성하기</a></li><li data-depth2="다른 이미지로 마커 생성하기"><a href="/web/sample/basicMarkerImage/">다른 이미지로 마커 생성하기</a></li><li data-depth2="인포윈도우 생성하기"><a href="/web/sample/basicInfoWindow/">인포윈도우 생성하기</a></li><li data-depth2="마커에 인포윈도우 표시하기"><a href="/web/sample/markerWithInfoWindow/">마커에 인포윈도우 표시하기</a></li><li data-depth2="마커에 클릭 이벤트 등록하기"><a href="/web/sample/addMarkerClickEvent/">마커에 클릭 이벤트 등록하기</a></li><li data-depth2="마커에 마우스 이벤트 등록하기"><a href="/web/sample/addMarkerMouseEvent/">마커에 마우스 이벤트 등록하기</a></li><li data-depth2="draggable 마커 이벤트 적용하기"><a href="/web/sample/addDraggableMarkerDragEvent/">draggable 마커 이벤트 적용하기</a></li><li data-depth2="geolocation으로 마커 표시하기"><a href="/web/sample/geolocationMarker/">geolocation으로 마커 표시하기</a></li><li data-depth2="여러개 마커 표시하기"><a href="/web/sample/multipleMarkerImage/">여러개 마커 표시하기</a></li><li data-depth2="여러개 마커 제어하기"><a href="/web/sample/multipleMarkerControl/">여러개 마커 제어하기</a></li><li data-depth2="여러개 마커에 이벤트 등록하기1"><a href="/web/sample/multipleMarkerEvent/">여러개 마커에 이벤트 등록하기1</a></li><li data-depth2="여러개 마커에 이벤트 등록하기2"><a href="/web/sample/multipleMarkerEvent2/">여러개 마커에 이벤트 등록하기2</a></li><li data-depth2="다양한 이미지 마커 표시하기"><a href="/web/sample/categoryMarker/">다양한 이미지 마커 표시하기</a></li><li data-depth2="원, 선, 사각형, 다각형 표시하기"><a href="/web/sample/drawShape/">원, 선, 사각형, 다각형 표시하기</a></li><li data-depth2="선의 거리 계산하기"><a href="/web/sample/calculatePolylineDistance/">선의 거리 계산하기</a></li><li data-depth2="다각형의 면적 계산하기"><a href="/web/sample/calculatePolygonArea/">다각형의 면적 계산하기</a></li><li data-depth2="다각형에 이벤트 등록하기1"><a href="/web/sample/addPolygonMouseEvent1/">다각형에 이벤트 등록하기1</a></li><li data-depth2="다각형에 이벤트 등록하기2"><a href="/web/sample/addPolygonMouseEvent2/">다각형에 이벤트 등록하기2</a></li><li data-depth2="원의 반경 계산하기"><a href="/web/sample/calculateCircleRadius/">원의 반경 계산하기</a></li><li data-depth2="커스텀 오버레이 생성하기1"><a href="/web/sample/customOverlay1/">커스텀 오버레이 생성하기1</a></li><li data-depth2="커스텀 오버레이 생성하기2"><a href="/web/sample/customOverlay2/">커스텀 오버레이 생성하기2</a></li><li data-depth2="닫기가 가능한 커스텀 오버레이"><a href="/web/sample/removableCustomOverlay/">닫기가 가능한 커스텀 오버레이</a></li><li data-depth2="이미지 마커와 커스텀 오버레이"><a href="/web/sample/markerWithCustomOverlay/">이미지 마커와 커스텀 오버레이</a></li><li data-depth2="커스텀오버레이를 드래그 하기"><a href="/web/sample/dragCustomOverlay/">커스텀오버레이를 드래그 하기</a></li><li data-depth2="지도 영역 밖의 마커위치 추적하기"><a href="/web/sample/markerTracker/">지도 영역 밖의 마커위치 추적하기</a></li><li data-depth2="구멍난 다각형 만들기"><a href="/web/sample/donut/">구멍난 다각형 만들기</a></li></ul></div><div data-depth1="로드뷰" class=""><strong>로드뷰</strong><ul><li data-depth2="로드뷰 생성하기"><a href="/web/sample/basicRoadview/">로드뷰 생성하기</a></li><li data-depth2="로드뷰 도로를 이용하여 로드뷰 생성하기"><a href="/web/sample/basicRoadview2/">로드뷰 도로를 이용하여 로드뷰 생성하기</a></li><li data-depth2="동동이를 이용하여 로드뷰와 지도 연동하기"><a href="/web/sample/moveRoadview/">동동이를 이용하여 로드뷰와 지도 연동하기</a></li><li data-depth2="로드뷰에 마커와 인포윈도우 올리기"><a href="/web/sample/roadviewOverlay1/">로드뷰에 마커와 인포윈도우 올리기</a></li><li data-depth2="마커의 고도와 반경 조절하기"><a href="/web/sample/roadviewOverlay2/">마커의 고도와 반경 조절하기</a></li><li data-depth2="로드뷰에 커스텀오버레이 올리기"><a href="/web/sample/roadviewCustomOverlay/">로드뷰에 커스텀오버레이 올리기</a></li><li data-depth2="로드뷰에 이미지 올리기"><a href="/web/sample/roadviewImageOverlay/">로드뷰에 이미지 올리기</a></li><li data-depth2="지도 위 버튼으로 로드뷰 표시하기"><a href="/web/sample/roadviewWithMapButton/">지도 위 버튼으로 로드뷰 표시하기</a></li><li data-depth2="로드뷰와 지도 토글하기"><a href="/web/sample/roadviewToggle/">로드뷰와 지도 토글하기</a></li></ul></div><div data-depth1="정적지도" class=""><strong>정적지도</strong><ul><li data-depth2="이미지 지도 생성하기"><a href="/web/sample/staticMap/">이미지 지도 생성하기</a></li><li data-depth2="이미지 지도에 마커 표시하기"><a href="/web/sample/staticMapWithMarker/">이미지 지도에 마커 표시하기</a></li><li data-depth2="마커와 텍스트 표시하기"><a href="/web/sample/staticMapWithMarkerText/">마커와 텍스트 표시하기</a></li></ul></div><div data-depth1="라이브러리" class=""><strong>라이브러리</strong><ul><li data-depth2="키워드로 장소검색하기"><a href="/web/sample/keywordBasic/">키워드로 장소검색하기</a></li><li data-depth2="키워드로 장소검색하고 목록으로 표출하기"><a href="/web/sample/keywordList/">키워드로 장소검색하고 목록으로 표출하기</a></li><li data-depth2="카테고리로 장소 검색하기"><a href="/web/sample/categoryBasic/">카테고리로 장소 검색하기</a></li><li data-depth2="카테고리별 장소 검색하기"><a href="/web/sample/categoryFromBounds/">카테고리별 장소 검색하기</a></li><li data-depth2="주소로 장소 표시하기"><a href="/web/sample/addr2coord/">주소로 장소 표시하기</a></li><li data-depth2="좌표로 주소를 얻어내기"><a href="/web/sample/coord2addr/">좌표로 주소를 얻어내기</a></li><li data-depth2="WTM 좌표를 WGS84 좌표로 변환하기"><a href="/web/sample/transCoord/">WTM 좌표를 WGS84 좌표로 변환하기</a></li><li data-depth2="마커 클러스터러 사용하기"><a href="/web/sample/basicClusterer/">마커 클러스터러 사용하기</a></li><li data-depth2="마커 클러스터러에 클릭이벤트 추가하기"><a href="/web/sample/addClustererClickEvent/">마커 클러스터러에 클릭이벤트 추가하기</a></li><li data-depth2="클러스터 마커에 텍스트 표시하기"><a href="/web/sample/chickenClusterer/">클러스터 마커에 텍스트 표시하기</a></li><li data-depth2="Drawing Library 사용하기"><a href="/web/sample/basicDrawingLibrary/">Drawing Library 사용하기</a></li><li data-depth2="Drawing Library에서 데이터 얻기"><a href="/web/sample/drawingGetData/">Drawing Library에서 데이터 얻기</a></li><li data-depth2="Toolbox 사용하기"><a href="/web/sample/drawingToolbox/">Toolbox 사용하기</a></li><li data-depth2="Drawing undo, redo"><a href="/web/sample/drawingUndo/">Drawing undo, redo</a></li></ul></div></div><div id="daumContent"><h2>지도 생성하기</h2><p>지도를 생성하는 가장 기본적인 예제입니다.</p><!-- 지도를 표시할 div 입니다 --><div id="map" style="width:100%;height:350px"></div><div class="wrap_tab"><![if gt ie 9]><a id="showLive" href="#" target="_blank" data-appkey="326e38503f420e1f0088dab1f46dc0c7" data-name="basicMap">직접 해보기</a> <![endif]><h4 class="tab">Javascript</h4><div class="tabbody"><figure class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">mapContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">),</span> <span class="c1">// 지도를 표시할 div </span>
-    <span class="nx">mapOption</span> <span class="o">=</span> <span class="p">{</span> 
-        <span class="nx">center</span><span class="o">:</span> <span class="ow">new</span> <span class="nx">kakao</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">LatLng</span><span class="p">(</span><span class="mf">33.450701</span><span class="p">,</span> <span class="mf">126.570667</span><span class="p">),</span> <span class="c1">// 지도의 중심좌표</span>
-        <span class="nx">level</span><span class="o">:</span> <span class="mf">3</span> <span class="c1">// 지도의 확대 레벨</span>
-    <span class="p">};</span>
-
-<span class="c1">// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다</span>
-<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">kakao</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nb">Map</span><span class="p">(</span><span class="nx">mapContainer</span><span class="p">,</span> <span class="nx">mapOption</span><span class="p">);</span> </code></pre></figure></div><h4 class="tab off">Javascript + HTML</h4><div class="tabbody off"><figure class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>지도 생성하기<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>함안군 CCTV GIS</title>
     
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- 지도를 표시할 div 입니다 --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;map&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;width:100%;height:350px;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</head>
+    
+    <style>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="kd">var</span> <span class="nx">mapContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">),</span> <span class="c1">// 지도를 표시할 div </span>
-    <span class="nx">mapOption</span> <span class="o">=</span> <span class="p">{</span> 
-        <span class="nx">center</span><span class="o">:</span> <span class="ow">new</span> <span class="nx">kakao</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">LatLng</span><span class="p">(</span><span class="mf">33.450701</span><span class="p">,</span> <span class="mf">126.570667</span><span class="p">),</span> <span class="c1">// 지도의 중심좌표</span>
-        <span class="nx">level</span><span class="o">:</span> <span class="mf">3</span> <span class="c1">// 지도의 확대 레벨</span>
-    <span class="p">};</span>
+	    
+ html, body {width:100%;height:100%;margin:0;padding:0;overflow: hidden}
+        
+#menu_wrap {position:absolute;top:50;left:-8;bottom:30;width:180px;margin:3px 0 5px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.8);z-index: 1;font-size:12px;border-radius: 0px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+  .sel_text:hover { background:#cdcdcd; }     
+	    
+	    
 
-<span class="c1">// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다</span>
-<span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">kakao</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nb">Map</span><span class="p">(</span><span class="nx">mapContainer</span><span class="p">,</span> <span class="nx">mapOption</span><span class="p">);</span> 
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></figure></div></div></div></div><div id="liveWrap"><div class="close"></div><iframe id="liveFrame"></iframe></div><div id="dimmedLayer" style="height:0"></div><script type="text/javascript" src="//m1.daumcdn.net/tiara/js/td.min.js"></script><script type="text/javascript">var _tiq = 'undefined' !== typeof _tiq ? _tiq : [];
-    window._tiq = _tiq;
-    _tiq.push(['__trackPageview']);</script><script type="text/javascript" src="//t1.daumcdn.net/mapapisdoc/cssjs/1657160418816/js/service.min.js"></script><script>var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    </style>
+<body>
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2634b7b6dd61e41a4d6c0bf40a2ef820"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+<div id="map" style="width:100%;height:100%;"></div>
+    
+    
+<script>
+       
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(35.2725308711779, 128.406307024695
+), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
-// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption);</script></body></html>
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// 자바스트립트 삽입공간 시작
+
+
+function setShowList1() {
+        menu_wrap.style.visibility='visible';
+        btnTitleList.className = 'selected_btn';
+        btnTitleListHide.className = 'btn';      
+}  
+
+function setShowList2() {
+		menu_wrap.style.visibility='hidden';
+        btnTitleList.className = 'btn';
+        btnTitleListHide.className = 'selected_btn';      
+}  
+
+    
+function setCenter(Lat, Lng) {            
+    // 이동할 위도 경도 위치를 생성합니다 
+    var moveLatLon = new daum.maps.LatLng(Lat, Lng);
+  
+    // 지도 중심을 이동 시킵니다
+    map.panTo(moveLatLon);
+var circle = new daum.maps.Circle({
+    center : new daum.maps.LatLng(Lat,  Lng),  // 원의 중심좌표 입니다 
+    radius: 100, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 1, // 선의 두께입니다 
+    strokeColor: '#ffa500', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#FF1000', // 채우기 색깔입니다
+    fillOpacity: 0.3  // 채우기 불투명도 입니다   
+}); 
+
+// 지도에 원을 표시합니다 
+circle.setMap(map);     
+setTimeout(function(){
+circle.setMap(null);    ;
+}, 2000);        
+    
+}
+
+// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+var mapTypeControl = new kakao.maps.MapTypeControl();
+
+// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+
+
+
+
+// 자바스트립트 삽입공간입니다 끝 
+
+
+// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+var positions = [
+{ content: '<div>도-001-산인신당고개</div>', latlng: new kakao.maps.LatLng(35.2643129874132,128.489259058209) },
+{ content: '<div>도-002-가야함안중앞02</div>', latlng: new kakao.maps.LatLng(35.2833312506004,128.402859093824) },
+{ content: '<div>도-003-군북월촌정암삼거리</div>', latlng: new kakao.maps.LatLng(35.3082426798151,128.296449710605) },
+{ content: '<div>도-004-법수백곡교</div>', latlng: new kakao.maps.LatLng(35.3341876999991,128.366483100003) },
+{ content: '<div>도-005-가야트라이얼마트01(회전)</div>', latlng: new kakao.maps.LatLng(35.2788974559203,128.409256718074) },
+{ content: '<div>도-006-칠원돈담마을입구(회전)</div>', latlng: new kakao.maps.LatLng(35.2983886530109,128.535954873034) },
+{ content: '<div>도-007-군북소포삼거리</div>', latlng: new kakao.maps.LatLng(35.2739713127003,128.349665690378) },
+{ content: '<div>도-008-칠원야촌사거리01</div>', latlng: new kakao.maps.LatLng(35.2773985806364,128.530717467658) },
+{ content: '<div>도-009-가야대송아파트앞사거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.2749537632602,128.409020745466) },
+{ content: '<div>도-010-가야워크힐모텔01</div>', latlng: new kakao.maps.LatLng(35.2758330999988,128.407194700003) },
+{ content: '<div>도-011-가야함안보건소앞사거리01</div>', latlng: new kakao.maps.LatLng(35.2751387547962,128.409996976272) },
+{ content: '<div>도-012-가야당산마을사거리</div>', latlng: new kakao.maps.LatLng(35.2812131437348,128.404145342625) },
+{ content: '<div>도-013-산인송정경로당</div>', latlng: new kakao.maps.LatLng(35.2851301459851,128.429965210212) },
+{ content: '<div>도-014-칠원남구마을</div>', latlng: new kakao.maps.LatLng(35.3035603684805,128.521474267541) },
+{ content: '<div>도-015-칠북덕촌마을</div>', latlng: new kakao.maps.LatLng(35.3808509415643,128.529782501937) },
+{ content: '<div>도-016-군북주유소맞은편</div>', latlng: new kakao.maps.LatLng(35.26146040065,128.343980656395) },
+{ content: '<div>도-017-대산목지마을표지석</div>', latlng: new kakao.maps.LatLng(35.3575901341467,128.45276828073) },
+{ content: '<div>도-018-칠서안기마을</div>', latlng: new kakao.maps.LatLng(35.3170307729743,128.497976277649) },
+{ content: '<div>도-019-법수백산마을</div>', latlng: new kakao.maps.LatLng(35.3537831920464,128.330252653577) },
+{ content: '<div>도-020-여항양촌음촌마을</div>', latlng: new kakao.maps.LatLng(35.2065065095564,128.449521467542) },
+{ content: '<div>도-021-가야한국전력뒤원룸촌</div>', latlng: new kakao.maps.LatLng(35.2744084470744,128.39931178361) },
+{ content: '<div>도-022-산인입곡공원길</div>', latlng: new kakao.maps.LatLng(35.2703452510922,128.440731931485) },
+{ content: '<div>도-024-칠원구용산사거리01</div>', latlng: new kakao.maps.LatLng(35.3072264247888,128.517601747132) },
+{ content: '<div>도-025-가야중앙병원삼거리01</div>', latlng: new kakao.maps.LatLng(35.2784361168213,128.427821300309) },
+{ content: '<div>도-026-칠서회산사거리</div>', latlng: new kakao.maps.LatLng(35.3129913892864,128.498807999668) },
+{ content: '<div>도-027-가야산림조합삼거리</div>', latlng: new kakao.maps.LatLng(35.276375826107,128.401539765891) },
+{ content: '<div>도-028-가야브니엘교회앞사거리(회전)</div>', latlng: new kakao.maps.LatLng(35.2744062015905,128.409183604659) },
+{ content: '<div>도-029-가야미래광고01</div>', latlng: new kakao.maps.LatLng(35.2742781066914,128.415193507304) },
+{ content: '<div>도-030-군북월촌구정암다리입구</div>', latlng: new kakao.maps.LatLng(35.3119735258996,128.29762984554) },
+{ content: '<div>도-031-법수응암마을입구</div>', latlng: new kakao.maps.LatLng(35.3191218152058,128.323382569648) },
+{ content: '<div>도-032-가야새길동산삼거리</div>', latlng: new kakao.maps.LatLng(35.3179890814394,128.405517510734) },
+{ content: '<div>도-033-칠서낙동주유소앞(회전)</div>', latlng: new kakao.maps.LatLng(35.384601093029,128.489120695708) },
+{ content: '<div>도-034-칠원부곡마을입구</div>', latlng: new kakao.maps.LatLng(35.2828036168535,128.51059618787) },
+{ content: '<div>도-035-칠원자이아파트입구</div>', latlng: new kakao.maps.LatLng(35.2737773250358,128.52618406565) },
+{ content: '<div>도-036-함안파수고개정상</div>', latlng: new kakao.maps.LatLng(35.2426208843742,128.402239300336) },
+{ content: '<div>도-037-가야자연저수지입구01</div>', latlng: new kakao.maps.LatLng(35.3015455154549,128.416895868388) },
+{ content: '<div>도-038-칠원장암마을버스승강장옆01</div>', latlng: new kakao.maps.LatLng(35.2943525224912,128.477777883671) },
+{ content: '<div>도-039-칠원양정새동네01(회전)</div>', latlng: new kakao.maps.LatLng(35.3006229053262,128.504079000416) },
+{ content: '<div>도-040-함안백암마을입구01</div>', latlng: new kakao.maps.LatLng(35.2331680939273,128.437155165102) },
+{ content: '<div>도-041-함안면북촌삼거리01</div>', latlng: new kakao.maps.LatLng(35.2461854356804,128.422084116237) },
+{ content: '<div>도-042-군북여명삼거리01</div>', latlng: new kakao.maps.LatLng(35.2770437994689,128.319551987937) },
+{ content: '<div>도-043-군북하림삼거리01</div>', latlng: new kakao.maps.LatLng(35.2434443483697,128.32912667712) },
+{ content: '<div>도-044-군북안도삼거리01</div>', latlng: new kakao.maps.LatLng(35.2656783354559,128.342250472247) },
+{ content: '<div>도-045-군북소포고개정상01</div>', latlng: new kakao.maps.LatLng(35.2842542994295,128.352374036851) },
+{ content: '<div>도-046-군북마애사입구01</div>', latlng: new kakao.maps.LatLng(35.2445696943775,128.324131592561) },
+{ content: '<div>도-047-군북박곡마을입구01</div>', latlng: new kakao.maps.LatLng(35.2731827332525,128.291193899909) },
+{ content: '<div>도-048-법수매곡마을입구01</div>', latlng: new kakao.maps.LatLng(35.329152062703,128.319638427737) },
+{ content: '<div>도-049-법수미남교앞01</div>', latlng: new kakao.maps.LatLng(35.3195034620184,128.31988011973) },
+{ content: '<div>도-050-법수황사농공단지삼거리앞01</div>', latlng: new kakao.maps.LatLng(35.3349479726151,128.318539246425) },
+{ content: '<div>도-051-대산댓질마을버스정류장옆01</div>', latlng: new kakao.maps.LatLng(35.3433140476503,128.457882941772) },
+{ content: '<div>도-052-대산부목보건소옆01</div>', latlng: new kakao.maps.LatLng(35.3637974105584,128.465505442929) },
+{ content: '<div>도-053-칠서진동마을입구사거리01</div>', latlng: new kakao.maps.LatLng(35.3813629168098,128.486889142907) },
+{ content: '<div>도-054-칠서강태마을진입사거리01</div>', latlng: new kakao.maps.LatLng(35.3528077070379,128.48743523277) },
+{ content: '<div>도-055-칠북동태유성PH근처01</div>', latlng: new kakao.maps.LatLng(35.3284016470772,128.542249988415) },
+{ content: '<div>도-056-칠북가연교부근01</div>', latlng: new kakao.maps.LatLng(35.3412520999982,128.515113100003) },
+{ content: '<div>도-057-산인부봉마을입구근처01</div>', latlng: new kakao.maps.LatLng(35.3040898650496,128.438665549186) },
+{ content: '<div>도-058-산인가산마을도로측01</div>', latlng: new kakao.maps.LatLng(35.2802746476069,128.435891677717) },
+{ content: '<div>도-059-산인외동마을입구01</div>', latlng: new kakao.maps.LatLng(35.2910906483935,128.434256956796) },
+{ content: '<div>도-061-여항면사무소옆01</div>', latlng: new kakao.maps.LatLng(35.2109301442896,128.43507670565) },
+{ content: '<div>도-062-칠원동성아파트입구쪽01</div>', latlng: new kakao.maps.LatLng(35.3024762370932,128.514244007824) },
+{ content: '<div>도-063-칠원운서마을앞01</div>', latlng: new kakao.maps.LatLng(35.3164617018678,128.532883375733) },
+{ content: '<div>도-064-칠원호곡마을회관옆01</div>', latlng: new kakao.maps.LatLng(35.2781089822165,128.515152143139) },
+{ content: '<div>도-065-대산서촌마을입구01</div>', latlng: new kakao.maps.LatLng(35.3369608192037,128.407374650234) },
+{ content: '<div>도-066-산인피렌체모텔앞01</div>', latlng: new kakao.maps.LatLng(35.2677121654758,128.466303163541) },
+{ content: '<div>도-067-군북신촌마을앞삼거리01</div>', latlng: new kakao.maps.LatLng(35.2289539999991,128.359955000003) },
+{ content: '<div>도-068-칠북유계사거리01</div>', latlng: new kakao.maps.LatLng(35.3478086158873,128.521566260971) },
+{ content: '<div>도-069-함안이수정앞01</div>', latlng: new kakao.maps.LatLng(35.2551365292874,128.424518038882) },
+{ content: '<div>도-070-법수석무사거리01</div>', latlng: new kakao.maps.LatLng(35.3183277858398,128.384164856674) },
+{ content: '<div>도-071-가야함주교앞사거리01</div>', latlng: new kakao.maps.LatLng(35.2801545936386,128.40331234911) },
+{ content: '<div>도-072-군북의봉사거리01</div>', latlng: new kakao.maps.LatLng(35.2945854092126,128.30050701687) },
+{ content: '<div>도-073-칠북이령교01</div>', latlng: new kakao.maps.LatLng(35.3646430456321,128.542000416533) },
+{ content: '<div>도-074-법수윤외리현대오일뱅크앞</div>', latlng: new kakao.maps.LatLng(35.3191149999988,128.386733000003) },
+{ content: '<div>도-075-법수윤외리조선비료앞</div>', latlng: new kakao.maps.LatLng(35.3205531075278,128.382299309379) },
+{ content: '<div>도-076-법수윤외리태광이엔지후문앞</div>', latlng: new kakao.maps.LatLng(35.3245239999991,128.377331000003) },
+{ content: '<div>도-077-법수윤외리삼태동마을앞</div>', latlng: new kakao.maps.LatLng(35.3269731269795,128.373429545132) },
+{ content: '<div>도-078-법수윤외리독산마을삼거리</div>', latlng: new kakao.maps.LatLng(35.3286684001058,128.371146394219) },
+{ content: '<div>도-079-여항대산마을입구01</div>', latlng: new kakao.maps.LatLng(35.1954006456976,128.427219032806) },
+{ content: '<div>도-080-함안반도케미칼앞01</div>', latlng: new kakao.maps.LatLng(35.2349619999988,128.407177000003) },
+{ content: '<div>도-081-가야신암마을입구01</div>', latlng: new kakao.maps.LatLng(35.2575894530887,128.385144159274) },
+{ content: '<div>도-082-군북수곡마을입구01</div>', latlng: new kakao.maps.LatLng(35.278938973256,128.304796015937) },
+{ content: '<div>도-083-군북사촌마을01</div>', latlng: new kakao.maps.LatLng(35.2368219999991,128.360843000003) },
+{ content: '<div>도-084-산인하송마을회관뒷편01</div>', latlng: new kakao.maps.LatLng(35.2867832846714,128.428630562851) },
+{ content: '<div>도-085-가야남경아파트뒤01</div>', latlng: new kakao.maps.LatLng(35.2797580954884,128.411552461103) },
+{ content: '<div>도-086-산인구일마을01</div>', latlng: new kakao.maps.LatLng(35.3004570641729,128.428726038697) },
+{ content: '<div>도-087-대산구룡정사거리01</div>', latlng: new kakao.maps.LatLng(35.3565738901432,128.421514400973) },
+{ content: '<div>도-088-대산소방서앞01</div>', latlng: new kakao.maps.LatLng(35.348550746135,128.430821831335) },
+{ content: '<div>도-089-칠서송락마을01</div>', latlng: new kakao.maps.LatLng(35.3806991483484,128.50228802604) },
+{ content: '<div>도-090-칠북덕남삼거리01</div>', latlng: new kakao.maps.LatLng(35.3522249999982,128.519025000003) },
+{ content: '<div>도-091-칠북면사무소01</div>', latlng: new kakao.maps.LatLng(35.3462131277286,128.521329801912) },
+{ content: '<div>도-092-칠서유계마을01</div>', latlng: new kakao.maps.LatLng(35.3399496803899,128.507643877708) },
+{ content: '<div>도-093-칠원달전사01</div>', latlng: new kakao.maps.LatLng(35.2903170517974,128.490822301891) },
+{ content: '<div>도-094-칠원용산동회관01</div>', latlng: new kakao.maps.LatLng(35.3074219999982,128.516645000003) },
+{ content: '<div>도-095-가야하검마을회관옆01</div>', latlng: new kakao.maps.LatLng(35.2761252205732,128.42022576297) },
+{ content: '<div>도-096-법수우거사거리01</div>', latlng: new kakao.maps.LatLng(35.3146529999991,128.352231000003) },
+{ content: '<div>도-097-군북119안전센터앞01</div>', latlng: new kakao.maps.LatLng(35.2644219512118,128.343587097344) },
+{ content: '<div>도-098-군북면사무소사거리01</div>', latlng: new kakao.maps.LatLng(35.2616549843078,128.344452479017) },
+{ content: '<div>도-099-군북고앞</div>', latlng: new kakao.maps.LatLng(35.2602680406797,128.342267394319) },
+{ content: '<div>도-100-군북농협앞01</div>', latlng: new kakao.maps.LatLng(35.2624741787,128.345609161029) },
+{ content: '<div>도-101-군북서점삼거리01</div>', latlng: new kakao.maps.LatLng(35.2622050736088,128.346445887091) },
+{ content: '<div>도-102-군북중앙삼거리01</div>', latlng: new kakao.maps.LatLng(35.2625602345022,128.347871124308) },
+{ content: '<div>도-103-군북봉림삼거리01</div>', latlng: new kakao.maps.LatLng(35.263116437713,128.349588994794) },
+{ content: '<div>도-104-군북모텔삼거리01</div>', latlng: new kakao.maps.LatLng(35.2611140144849,128.34755348601) },
+{ content: '<div>도-105-군북공설시장01</div>', latlng: new kakao.maps.LatLng(35.2611114018467,128.346783337647) },
+{ content: '<div>도-106-군북면사무소뒤01</div>', latlng: new kakao.maps.LatLng(35.2614074511927,128.345431926601) },
+{ content: '<div>도-107-가야상광동경로당옆01</div>', latlng: new kakao.maps.LatLng(35.2464334918708,128.408491415175) },
+{ content: '<div>도-108-가야농협하나로마트뒷길01</div>', latlng: new kakao.maps.LatLng(35.274634690209,128.406088475771) },
+{ content: '<div>도-109-칠원다인종합상사앞01</div>', latlng: new kakao.maps.LatLng(35.2867431623564,128.530218247996) },
+{ content: '<div>도-110-함안봉성당산들01</div>', latlng: new kakao.maps.LatLng(35.2409945292271,128.430203422104) },
+{ content: '<div>도-111-함안강지교앞01</div>', latlng: new kakao.maps.LatLng(35.2182594340895,128.43723828508) },
+{ content: '<div>도-112-군북함안조씨대종회옆01</div>', latlng: new kakao.maps.LatLng(35.2348126178209,128.325913078269) },
+{ content: '<div>도-113-군북유현슈퍼앞삼거리01</div>', latlng: new kakao.maps.LatLng(35.3029096875486,128.345533826696) },
+{ content: '<div>도-114-법수부남마을입구01</div>', latlng: new kakao.maps.LatLng(35.315714929899,128.392231547155) },
+{ content: '<div>도-115-법수악양뚝방주차장사거리01</div>', latlng: new kakao.maps.LatLng(35.3281204258043,128.388187020931) },
+{ content: '<div>도-116-대산장암보건진료소앞01</div>', latlng: new kakao.maps.LatLng(35.3658131635205,128.432893342752) },
+{ content: '<div>도-117-칠서계내삼거리01</div>', latlng: new kakao.maps.LatLng(35.3783834015423,128.478975005447) },
+{ content: '<div>도-118-칠북가동마을입구01</div>', latlng: new kakao.maps.LatLng(35.338975021907,128.534711989802) },
+{ content: '<div>도-119-칠북세웅테크앞교차로01</div>', latlng: new kakao.maps.LatLng(35.3565599999982,128.517307600003) },
+{ content: '<div>도-120-산인농협창고옆01</div>', latlng: new kakao.maps.LatLng(35.2869662900327,128.429837979227) },
+{ content: '<div>도-121-산인운곡삼거리01</div>', latlng: new kakao.maps.LatLng(35.3182170727294,128.45152043575) },
+{ content: '<div>도-122-여항양촌마을회관앞01</div>', latlng: new kakao.maps.LatLng(35.2092393016706,128.45163398794) },
+{ content: '<div>도-123-가야해동아파트옆구철길01</div>', latlng: new kakao.maps.LatLng(35.2754371344345,128.402757755477) },
+{ content: '<div>도-124-가야삼기마을입구01</div>', latlng: new kakao.maps.LatLng(35.2684565436781,128.404402541115) },
+{ content: '<div>도-125-가야읍도항도원빌앞삼거리</div>', latlng: new kakao.maps.LatLng(35.275730,128.399546) },
+{ content: '<div>도-126-가야월성생활복지관주차장옆01</div>', latlng: new kakao.maps.LatLng(35.2468502806855,128.382595525359) },
+{ content: '<div>도-127-군북수곡마을회관앞01</div>', latlng: new kakao.maps.LatLng(35.2679347556193,128.309623414568) },
+{ content: '<div>도-128-군북장지IC입구삼거리01</div>', latlng: new kakao.maps.LatLng(35.2923091645907,128.338002889009) },
+{ content: '<div>도-129-대산서촌마을회관앞사거리01</div>', latlng: new kakao.maps.LatLng(35.3373389999984,128.406338800004) },
+{ content: '<div>도-130-대산수양정다리앞01</div>', latlng: new kakao.maps.LatLng(35.3461084374397,128.428804185817) },
+{ content: '<div>도-131-법수내송마을입구01</div>', latlng: new kakao.maps.LatLng(35.33052992909,128.347971915766) },
+{ content: '<div>도-133-법수윤내마을입구01</div>', latlng: new kakao.maps.LatLng(35.307061419355,128.370812507641) },
+{ content: '<div>도-134-산인고려동마을회관앞01</div>', latlng: new kakao.maps.LatLng(35.2758943459824,128.459963488427) },
+{ content: '<div>도-135-산인도천마을입구01</div>', latlng: new kakao.maps.LatLng(35.2723885850435,128.47217718618) },
+{ content: '<div>도-136-여항좌촌주차장맞은편01</div>', latlng: new kakao.maps.LatLng(35.2016523473808,128.423860692053) },
+{ content: '<div>도-137-칠북령동마을회관옆01</div>', latlng: new kakao.maps.LatLng(35.3641561201886,128.541771189461) },
+{ content: '<div>도-138-칠북화천마을회관앞사거리01</div>', latlng: new kakao.maps.LatLng(35.3485708928461,128.514199523655) },
+{ content: '<div>도-139-칠서평지사거리01</div>', latlng: new kakao.maps.LatLng(35.3860945581631,128.512930996666) },
+{ content: '<div>도-140-칠서강태이곡마을입구01</div>', latlng: new kakao.maps.LatLng(35.348681563927,128.477982748803) },
+{ content: '<div>도-141-칠원덕산교동마을입구01</div>', latlng: new kakao.maps.LatLng(35.3042233999975,128.530073000004) },
+{ content: '<div>도-142-칠원벽산아파트옆01</div>', latlng: new kakao.maps.LatLng(35.274974317285,128.517635054667) },
+{ content: '<div>도-143-칠원양정마을입구앞01</div>', latlng: new kakao.maps.LatLng(35.296174973616,128.511044013371) },
+{ content: '<div>도-144-함안봉성2교차로01</div>', latlng: new kakao.maps.LatLng(35.2418413595015,128.426949243759) },
+{ content: '<div>도-145-함안원촌마을입구01</div>', latlng: new kakao.maps.LatLng(35.2367659664824,128.403811458377) },
+{ content: '<div>도-146-함안도림마을버스정류장앞</div>', latlng: new kakao.maps.LatLng(35.2515889868646,128.431199137369) },
+{ content: '<div>도-147-산인입곡마을삼거리01</div>', latlng: new kakao.maps.LatLng(35.2584760677684,128.452023276313) },
+{ content: '<div>도-148-칠서칠원고앞01</div>', latlng: new kakao.maps.LatLng(35.3178918556971,128.50907035583) },
+{ content: '<div>도-149-칠원성당주변01</div>', latlng: new kakao.maps.LatLng(35.3047359111631,128.519773867677) },
+{ content: '<div>도-150-함안강외마을앞사거리01</div>', latlng: new kakao.maps.LatLng(35.2179053066983,128.43196964849) },
+{ content: '<div>도-151-함안동지산마을입구01</div>', latlng: new kakao.maps.LatLng(35.2629195556772,128.437711331574) },
+{ content: '<div>도-152-가야덕전동마을입구</div>', latlng: new kakao.maps.LatLng(35.2755612362975,128.374837900571) },
+{ content: '<div>도-153-가야필동마을삼거리</div>', latlng: new kakao.maps.LatLng(35.2715780102035,128.382595317446) },
+{ content: '<div>도-154-산인학산마을회관앞</div>', latlng: new kakao.maps.LatLng(35.2761288289796,128.430037217512) },
+{ content: '<div>도-156-칠원대동아파트입구</div>', latlng: new kakao.maps.LatLng(35.2945813634452,128.534605264701) },
+{ content: '<div>도-157-칠원고주변</div>', latlng: new kakao.maps.LatLng(35.3179522526544,128.508204422652) },
+{ content: '<div>도-158-대산입사마을01(회전)</div>', latlng: new kakao.maps.LatLng(35.3651901363128,128.450971733803) },
+{ content: '<div>도-159-대산장포마을01(회전)</div>', latlng: new kakao.maps.LatLng(35.3750269505128,128.427396386551) },
+{ content: '<div>도-160-대산장암마을01(회전)</div>', latlng: new kakao.maps.LatLng(35.3833465768763,128.431451939411) },
+{ content: '<div>도-161-대산연산마을01(회전)</div>', latlng: new kakao.maps.LatLng(35.3701972721407,128.437912277517) },
+{ content: '<div>도-162-가야선왕마을 입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.2830158943629,128.38410835664) },
+{ content: '<div>도-163-가야축암마을삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.30470017602,128.399287565457) },
+{ content: '<div>도-164-가야춘곡마을회관앞사거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.2542316713855,128.377578365614) },
+{ content: '<div>도-165-가야작은영화관놀이터01(회전)</div>', latlng: new kakao.maps.LatLng(35.277671616709,128.411516617576) },
+{ content: '<div>도-166-가야함안교앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2792547266286,128.419271232912) },
+{ content: '<div>도-167-군북영운마을입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.2525039028521,128.318729649293) },
+{ content: '<div>도-168-군북중암마을그린모텔앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2605209223074,128.346617211456) },
+{ content: '<div>도-169-군북명관마을저수지삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.2272491619736,128.337857111887) },
+{ content: '<div>도-170-대산대사일반산단입구삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.3347788767438,128.466670220095) },
+{ content: '<div>도-171-대산기동마을입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.3392300598661,128.407743457758) },
+{ content: '<div>도-172-대산소이열마을진입로01(회전)</div>', latlng: new kakao.maps.LatLng(35.320466132825,128.421410802025) },
+{ content: '<div>도-173-법수가곡마을삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.3152218394633,128.336769108577) },
+{ content: '<div>도-174-법수윤산마을입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.3131161442562,128.373565388214) },
+{ content: '<div>도-175-법수독산마을회관앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.3278215635608,128.374221265429) },
+{ content: '<div>도-176-산인대천마을게이트볼장옆01(회전)</div>', latlng: new kakao.maps.LatLng(35.2734606908021,128.446808545785) },
+{ content: '<div>도-177-산인가산마을저수지옆01(회전)</div>', latlng: new kakao.maps.LatLng(35.2832472821515,128.436849961922) },
+{ content: '<div>도-178-산인신당마을회관앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2699668729406,128.481616579419) },
+{ content: '<div>도-179-산인안인마을저수지옆01(회전)</div>', latlng: new kakao.maps.LatLng(35.2883474287313,128.435985758188) },
+{ content: '<div>도-180-여항봉곡마을회관앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.1901770063788,128.458434819338) },
+{ content: '<div>도-181-여항양촌마을두릉교앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2078102466519,128.452113891249) },
+{ content: '<div>도-182-여항감현마을회관앞반사경앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.1909946253524,128.431274251343) },
+{ content: '<div>도-183-칠북가동마을입구삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.3384413080006,128.535854073254) },
+{ content: '<div>도-184-칠북덕촌마을삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.379820030883,128.530804969606) },
+{ content: '<div>도-185-칠원중학교뒷편01(회전)</div>', latlng: new kakao.maps.LatLng(35.316511532028,128.50683879035) },
+{ content: '<div>도-186-칠서용동마을경로당입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.3854261278495,128.506816330213) },
+{ content: '<div>도-187-칠서강태마을앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.3434440657232,128.479750578692) },
+{ content: '<div>도-188-칠원산정마을입구표지석01(회전)</div>', latlng: new kakao.maps.LatLng(35.2876934745478,128.568269357946) },
+{ content: '<div>도-189-칠원야촌마을재가노인복지센터앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2790732801068,128.524004690989) },
+{ content: '<div>도-190-칠원용산마을삼칠떡방앗간뒷골몰01(회전)</div>', latlng: new kakao.maps.LatLng(35.3073371974287,128.517323372323) },
+{ content: '<div>도-191-함안장명마을입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.2214256937035,128.426244440991) },
+{ content: '<div>도-192-함안강외마을샛담교입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.2138138668834,128.436919497237) },
+{ content: '<div>도-193-함안금천마을회관앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2537768854198,128.431454439221) },
+{ content: '<div>도-194-칠북함안보사거리01</div>', latlng: new kakao.maps.LatLng(35.3773103816756,128.550790724058) },
+{ content: '<div>도-195-가야도항커피린앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2721919777676,128.398219017993) },
+{ content: '<div>도-196-가야영광사우나부근01(회전)</div>', latlng: new kakao.maps.LatLng(35.2787038239632,128.41412211325) },
+{ content: '<div>도-197-군북소포삼거리부근01(회전)</div>', latlng: new kakao.maps.LatLng(35.2744263088032,128.348953115364) },
+{ content: '<div>도-198-칠원읍사무소옆01(회전)</div>', latlng: new kakao.maps.LatLng(35.3087115604539,128.518197730888) },
+{ content: '<div>도-199-칠원오곡마을사거리01</div>', latlng: new kakao.maps.LatLng(35.287946566539,128.504323764349) },
+{ content: '<div>도-200-칠서이룡교차로옆하우스단지입구01</div>', latlng: new kakao.maps.LatLng(35.3853641489482,128.516454390509) },
+{ content: '<div>도-201-칠서이룡교차로옆하우스단지옆01</div>', latlng: new kakao.maps.LatLng(35.3831856649238,128.51936475625) },
+{ content: '<div>도-202-함안강외마을01</div>', latlng: new kakao.maps.LatLng(35.219045,128.433817) },
+{ content: '<div>도-203-함안강외교앞01</div>', latlng: new kakao.maps.LatLng(35.220402,128.432303) },
+{ content: '<div>도-204-함안강외샛담마을01</div>', latlng: new kakao.maps.LatLng(35.214405,128.439995) },
+{ content: '<div>도-205-가야박물관입구사거리01</div>', latlng: new kakao.maps.LatLng(35.272069,128.401296) },
+{ content: '<div>도-206-가야신화빌앞01</div>', latlng: new kakao.maps.LatLng(35.274724,128.401035) },
+{ content: '<div>도-207-군북장명마을내01</div>', latlng: new kakao.maps.LatLng(35.291314,128.341344) },
+{ content: '<div>도-208-법수응암마을미남교앞01</div>', latlng: new kakao.maps.LatLng(35.317296,128.322793) },
+{ content: '<div>도-209-산인운곡마을입구01</div>', latlng: new kakao.maps.LatLng(35.31045,128.450188) },
+{ content: '<div>도-210-산인입곡동양지다복01</div>', latlng: new kakao.maps.LatLng(35.26276,128.453929) },
+{ content: '<div>도-211-함안정동마을입구01</div>', latlng: new kakao.maps.LatLng(35.241695,128.433439) },
+{ content: '<div>도-212-여항두곡마을입구01</div>', latlng: new kakao.maps.LatLng(35.205412,128.442937) },
+{ content: '<div>도-213-칠원부곡마을체육공원내01</div>', latlng: new kakao.maps.LatLng(35.282995,128.511152) },
+{ content: '<div>도-214-칠원돈담마을회관앞01</div>', latlng: new kakao.maps.LatLng(35.293548,128.549609) },
+{ content: '<div>도-215-칠북내봉촌거정마을01</div>', latlng: new kakao.maps.LatLng(35.376216,128.572833) },
+{ content: '<div>도-216-칠북성호마을입구01</div>', latlng: new kakao.maps.LatLng(35.351451,128.503383) },
+{ content: '<div>도-217-칠서무릉마을무산사앞01</div>', latlng: new kakao.maps.LatLng(35.323478,128.515582) },
+{ content: '<div>도-218-칠서향촌마을회관앞01</div>', latlng: new kakao.maps.LatLng(35.36772,128.491655) },
+{ content: '<div>도-219-대산매산마을삼진APT앞01</div>', latlng: new kakao.maps.LatLng(35.353381,128.428201) },
+{ content: '<div>도-220-함안면무진정앞01</div>', latlng: new kakao.maps.LatLng(35.2543112219748,128.422336867649) },
+{ content: '<div>도-221-가야시장앞01</div>', latlng: new kakao.maps.LatLng(35.2764838758562,128.406126496548) },
+{ content: '<div>도-222-대산시장앞01</div>', latlng: new kakao.maps.LatLng(35.3522819600198,128.42810318628) },
+{ content: '<div>도-223-대산농어촌공사사거리01</div>', latlng: new kakao.maps.LatLng(35.34789,128.43651) },
+{ content: '<div>도-224-대산평림중앙교회앞01</div>', latlng: new kakao.maps.LatLng(35.34506,128.44179) },
+{ content: '<div>도-224-대산평림중앙교회앞02(회전)</div>', latlng: new kakao.maps.LatLng(35.34506,128.44179) },
+{ content: '<div>도-227-가야시장공영주차장앞사거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.276781,128.408520) },
+{ content: '<div>도-228-가야괘안마을괘안교앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.265359,128.385885) },
+{ content: '<div>도-229-가야도항주공1단지둑방01(회전)</div>', latlng: new kakao.maps.LatLng(35.2763483245454,128.396361903635) },
+{ content: '<div>도-230-가야도항주공2단지둑방01(회전)</div>', latlng: new kakao.maps.LatLng(35.2781788668102,128.397835840025) },
+{ content: '<div>도-231-가야돈산삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.2885680711747,128.400754182048) },
+{ content: '<div>도-232-산인면사무소앞삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.2791526691559,128.42349104726) },
+{ content: '<div>도-233-가야중앙약국뒤주차장01(회전)</div>', latlng: new kakao.maps.LatLng(35.2782832044466,128.405553006591) },
+{ content: '<div>도-234-군북역앞회전교차로01(회전)</div>', latlng: new kakao.maps.LatLng(35.2522889882342,128.350945994874) },
+{ content: '<div>도-235-군북동촌2교부근신호등앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2566151963422,128.351940757376) },
+{ content: '<div>도-236-군북봉곡1동마을석담1교출구01(회전)</div>', latlng: new kakao.maps.LatLng(35.2710353597617,128.346688255995) },
+{ content: '<div>도-237-군북죽산마을삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.275619,128.328880) },
+{ content: '<div>도-238-군북태성산업기계앞삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.2966354521201,128.347147523092) },
+{ content: '<div>도-239-군북한국렌탈앞삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.2937827709225,128.354787396729) },
+{ content: '<div>도-240-대산도둑고개삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.3154440994681,128.473656098748) },
+{ content: '<div>도-241-대산신대삼거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.3484555539199,128.413937059985) },
+{ content: '<div>도-242-산인문암보건진료소앞(회전)</div>', latlng: new kakao.maps.LatLng(35.2719783919015,128.456826228832) },
+{ content: '<div>도-244-산인부봉1교앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.3045270358211,128.436465925605) },
+{ content: '<div>도-245-여항식객앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.1964521692803,128.455072754482) },
+{ content: '<div>도-246-칠서가르멜의모후수녀원주변01(회전)</div>', latlng: new kakao.maps.LatLng(35.3785327281299,128.477151921368) },
+{ content: '<div>도-247-칠서용호마을앞들진입로주변01(회전)</div>', latlng: new kakao.maps.LatLng(35.3724240440502,128.501871999857) },
+{ content: '<div>도-248-칠서태곡삼거리(송락마을)01(회전)</div>', latlng: new kakao.maps.LatLng(35.3614962701151,128.496457511543) },
+{ content: '<div>도-249-칠북영동마을입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.3335395800413,128.530865594192) },
+{ content: '<div>도-250-칠원죽청교입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.3145339210938,128.522203119685) },
+{ content: '<div>도-251-칠원예곡체육공원01(회전)</div>', latlng: new kakao.maps.LatLng(35.2758749527882,128.525647262876) },
+{ content: '<div>도-252-군북장명동마을벤츠공장앞삼거리(회전)</div>', latlng: new kakao.maps.LatLng(35.290827,128.338958) },
+{ content: '<div>도-253-군북남산마을01(회전)</div>', latlng: new kakao.maps.LatLng(35.282851,128.345371) },
+{ content: '<div>도-253-군북남산마을02(회전)</div>', latlng: new kakao.maps.LatLng(35.282851,128.345371) },
+{ content: '<div>도-254-군북남산마을버스정류장02(회전)</div>', latlng: new kakao.maps.LatLng(35.280434,128.345661) },
+{ content: '<div>생-001-가야함주공원내(회전)</div>', latlng: new kakao.maps.LatLng(35.2824672256481,128.39895457532) },
+{ content: '<div>생-002-가야공원입구삼거리</div>', latlng: new kakao.maps.LatLng(35.2814018660092,128.403166270574) },
+{ content: '<div>생-003-가야함주공원구름다리01</div>', latlng: new kakao.maps.LatLng(35.2801969610947,128.39996563095) },
+{ content: '<div>생-004-가야쌈지공원내(회전)</div>', latlng: new kakao.maps.LatLng(35.2777495726509,128.407895322329) },
+{ content: '<div>생-005-여항별천마을</div>', latlng: new kakao.maps.LatLng(35.1825445629534,128.431374610132) },
+{ content: '<div>생-006-여항둘레길1구간입구</div>', latlng: new kakao.maps.LatLng(35.2037062999988,128.430068700003) },
+{ content: '<div>생-007-가야아라공원입구01</div>', latlng: new kakao.maps.LatLng(35.2715721731431,128.407713212111) },
+{ content: '<div>생-008-가야아라공원화장실앞01</div>', latlng: new kakao.maps.LatLng(35.2719966405554,128.407814330012) },
+{ content: '<div>생-009-가야검암공원01</div>', latlng: new kakao.maps.LatLng(35.273099,128.421191) },
+{ content: '<div>생-010-대산구)장암보건진료소</div>', latlng: new kakao.maps.LatLng(35.3649579304218,128.432170569696) },
+{ content: '<div>생-011-가야동입구(회전)</div>', latlng: new kakao.maps.LatLng(35.2790146800496,128.394460269603) },
+{ content: '<div>생-012-가야대한아파트앞01</div>', latlng: new kakao.maps.LatLng(35.27442715349,128.40151633366) },
+{ content: '<div>생-013-칠원보람의원앞01</div>', latlng: new kakao.maps.LatLng(35.3079992646824,128.518592713419) },
+{ content: '<div>생-014-군북동촌마을</div>', latlng: new kakao.maps.LatLng(35.2527907561637,128.350750522838) },
+{ content: '<div>생-015-대산보건소앞(회전)</div>', latlng: new kakao.maps.LatLng(35.3519226822453,128.428336571899) },
+{ content: '<div>생-016-칠서향촌마을</div>', latlng: new kakao.maps.LatLng(35.3650032339477,128.490250796633) },
+{ content: '<div>생-017-법수대평마을앞</div>', latlng: new kakao.maps.LatLng(35.3395881964019,128.341347848886) },
+{ content: '<div>생-018-함안원예시설사업소(회전)</div>', latlng: new kakao.maps.LatLng(35.2355679999272,128.423874535528) },
+{ content: '<div>생-019-가야한전앞사거리01(회전)</div>', latlng: new kakao.maps.LatLng(35.2750429800982,128.39891752664) },
+{ content: '<div>생-020-칠북어연마을입구</div>', latlng: new kakao.maps.LatLng(35.3372496199731,128.527419077756) },
+{ content: '<div>생-021-가야남경아파트뒷길01</div>', latlng: new kakao.maps.LatLng(35.2799449999984,128.412542300004) },
+{ content: '<div>생-022-산인갈전마을입구</div>', latlng: new kakao.maps.LatLng(35.2704960770821,128.465140523632) },
+{ content: '<div>생-023-칠원석전마을입구(회전)</div>', latlng: new kakao.maps.LatLng(35.2862288991588,128.528729321601) },
+{ content: '<div>생-024-대산대사마을입구</div>', latlng: new kakao.maps.LatLng(35.32842261207,128.464165284243) },
+{ content: '<div>생-025-칠원축협앞01</div>', latlng: new kakao.maps.LatLng(35.3083150993888,128.517585743637) },
+{ content: '<div>생-026-대산매산마을입구(회전)</div>', latlng: new kakao.maps.LatLng(35.3555368999984,128.425537000004) },
+{ content: '<div>생-027-함안성당앞골목01</div>', latlng: new kakao.maps.LatLng(35.2792086066552,128.404913558104) },
+{ content: '<div>생-028-함안초교주변01(회전)</div>', latlng: new kakao.maps.LatLng(35.2395718398845,128.422257668311) },
+{ content: '<div>생-029-가야원동회관옆</div>', latlng: new kakao.maps.LatLng(35.2748364400934,128.402929512391) },
+{ content: '<div>생-030-가야쌈지공원팔각정01</div>', latlng: new kakao.maps.LatLng(35.2781364320978,128.407547725567) },
+{ content: '<div>생-031-함안파출소옆01(회전)</div>', latlng: new kakao.maps.LatLng(35.2417326119302,128.422211551127) },
+{ content: '<div>생-032-가야동신아파트진입로</div>', latlng: new kakao.maps.LatLng(35.2841783141922,128.40309677248) },
+{ content: '<div>생-033-함안면세븐일레븐앞</div>', latlng: new kakao.maps.LatLng(35.2428344177833,128.424214509558) },
+{ content: '<div>생-034-함안면덕암마을입구</div>', latlng: new kakao.maps.LatLng(35.2372056905938,128.420663631545) },
+{ content: '<div>생-035-칠서용호마을입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.3723603916669,128.499033654871) },
+{ content: '<div>생-036-칠북남양마을입구</div>', latlng: new kakao.maps.LatLng(35.3655065139398,128.520279409035) },
+{ content: '<div>생-037-여항내곡마을버스승강장앞01</div>', latlng: new kakao.maps.LatLng(35.2034123861762,128.459603680086) },
+{ content: '<div>생-041-가야동원체어빌뒷편01</div>', latlng: new kakao.maps.LatLng(35.2806206184923,128.416616755589) },
+{ content: '<div>생-042-가야영광사우나뒷편구철길옆01</div>', latlng: new kakao.maps.LatLng(35.2778743697751,128.414731317254) },
+{ content: '<div>생-043-가야시장입구01</div>', latlng: new kakao.maps.LatLng(35.2766444919374,128.405181243222) },
+{ content: '<div>생-044-칠원읍대신종합상사뒷편01</div>', latlng: new kakao.maps.LatLng(35.3085093648917,128.520343134248) },
+{ content: '<div>생-045-가야장명마을입구01</div>', latlng: new kakao.maps.LatLng(35.3025325799366,128.384917424178) },
+{ content: '<div>생-046-대산시장삼거리01</div>', latlng: new kakao.maps.LatLng(35.3526419999984,128.426956000004) },
+{ content: '<div>생-047-칠원우체국주변01</div>', latlng: new kakao.maps.LatLng(35.3097829268357,128.516491614279) },
+{ content: '<div>생-048-칠서대치마을입구01</div>', latlng: new kakao.maps.LatLng(35.3608169137233,128.477692520083) },
+{ content: '<div>생-049-가야백산마을입구01</div>', latlng: new kakao.maps.LatLng(35.2638122753086,128.409346577392) },
+{ content: '<div>생-052-산인갈전마을삼거리01</div>', latlng: new kakao.maps.LatLng(35.2739920779599,128.464945451801) },
+{ content: '<div>생-054-군북경로당01</div>', latlng: new kakao.maps.LatLng(35.2618553695576,128.345258650147) },
+{ content: '<div>생-055-가야아람데파트뒷편01</div>', latlng: new kakao.maps.LatLng(35.2726907173543,128.40964025122) },
+{ content: '<div>생-056-가야함주공원스포츠타운우측진입로01</div>', latlng: new kakao.maps.LatLng(35.2835969999984,128.400800000004) },
+{ content: '<div>생-057-가야함주공원놀이터매점앞01</div>', latlng: new kakao.maps.LatLng(35.2817114362757,128.400009743472) },
+{ content: '<div>생-058-가야축암마을입구01</div>', latlng: new kakao.maps.LatLng(35.2998186221727,128.400229144391) },
+{ content: '<div>생-059-가야우체국뒷편01</div>', latlng: new kakao.maps.LatLng(35.2735362192529,128.406521914625) },
+{ content: '<div>생-060-칠원벽화거리입구01</div>', latlng: new kakao.maps.LatLng(35.3060426764093,128.518860178143) },
+{ content: '<div>생-061-칠원유원초교주변굴다리01</div>', latlng: new kakao.maps.LatLng(35.2978888199976,128.499010780004) },
+{ content: '<div>생-062-칠원곡촌마을01</div>', latlng: new kakao.maps.LatLng(35.2760496729596,128.534121304104) },
+{ content: '<div>생-063-칠원호암중옆01</div>', latlng: new kakao.maps.LatLng(35.2750860362314,128.522054195145) },
+{ content: '<div>생-064-칠원오곡어린이공원옆01</div>', latlng: new kakao.maps.LatLng(35.275029017908,128.520444323936) },
+{ content: '<div>생-065-함안국밥촌01</div>', latlng: new kakao.maps.LatLng(35.2423305308857,128.422672914436) },
+{ content: '<div>생-066-군북신창마을입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.2557135699988,128.349411950004) },
+{ content: '<div>생-067-대산아동센터앞01</div>', latlng: new kakao.maps.LatLng(35.3491616099984,128.433284690004) },
+{ content: '<div>생-068-칠서삼칠농협앞삼거리01</div>', latlng: new kakao.maps.LatLng(35.3343417738935,128.497438998601) },
+{ content: '<div>생-069-칠성중학교앞01</div>', latlng: new kakao.maps.LatLng(35.3875366242604,128.50291518607) },
+{ content: '<div>생-070-산인수동마을버스정류장01</div>', latlng: new kakao.maps.LatLng(35.2727961138701,128.460053270324) },
+{ content: '<div>생-071-산인입곡군립공원삼거리01</div>', latlng: new kakao.maps.LatLng(35.2647847930762,128.447686343761) },
+{ content: '<div>생-072-산인입곡군립공원산림욕장화장실앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.261843443523,128.445992114814) },
+{ content: '<div>생-073-산인입곡문화공원주차장01</div>', latlng: new kakao.maps.LatLng(35.2634453565511,128.446931705042) },
+{ content: '<div>생-074-산인입곡문화공원연못앞01</div>', latlng: new kakao.maps.LatLng(35.2608453233488,128.445885807941) },
+{ content: '<div>생-075-산인입곡문화공원암석원앞01</div>', latlng: new kakao.maps.LatLng(35.2595559656543,128.4451199698) },
+{ content: '<div>생-076-산인입곡문화공원관리소뒷편01</div>', latlng: new kakao.maps.LatLng(35.261389763999,128.445597166797) },
+{ content: '<div>생-077-산인입곡군립공원출렁다리01</div>', latlng: new kakao.maps.LatLng(35.2677004441434,128.443978122155) },
+{ content: '<div>생-078-산인입곡군립공원주차장01</div>', latlng: new kakao.maps.LatLng(35.2636953897231,128.449473763945) },
+{ content: '<div>생-079-여항외암초교주변01</div>', latlng: new kakao.maps.LatLng(35.2089200694317,128.434940803405) },
+{ content: '<div>생-080-여항공설운동장옆삼거리01</div>', latlng: new kakao.maps.LatLng(35.2082776175237,128.435310969876) },
+{ content: '<div>생-082-군북여명마을01(회전)</div>', latlng: new kakao.maps.LatLng(35.2591502028353,128.322710535363) },
+{ content: '<div>생-083-가야충의공원01</div>', latlng: new kakao.maps.LatLng(35.2805505825823,128.406717019541) },
+{ content: '<div>생-084-가야검암산정상01(회전)</div>', latlng: new kakao.maps.LatLng(35.2709417692583,128.42844390416) },
+{ content: '<div>생-085-가야검암동산정입구01</div>', latlng: new kakao.maps.LatLng(35.266257187583,128.424288137907) },
+{ content: '<div>생-086-가야검암대영빌라01</div>', latlng: new kakao.maps.LatLng(35.2752675509858,128.421083442725) },
+{ content: '<div>생-087-칠원청호아파트01</div>', latlng: new kakao.maps.LatLng(35.3052969999976,128.521275000004) },
+{ content: '<div>생-088-대산체육공원01</div>', latlng: new kakao.maps.LatLng(35.356095,128.431306) },
+{ content: '<div>생-089-가야검암덕암빌라옆01</div>', latlng: new kakao.maps.LatLng(35.2761005614986,128.41947444303) },
+{ content: '<div>생-090-가야농협산지집하장앞01</div>', latlng: new kakao.maps.LatLng(35.2910635827859,128.400246554755) },
+{ content: '<div>생-091-가야시장내01_열화상</div>', latlng: new kakao.maps.LatLng(35.2770012738573,128.406548993712) },
+{ content: '<div>생-092-가야검암생활체육공원화장실입구</div>', latlng: new kakao.maps.LatLng(35.274013235505,128.42114136372) },
+{ content: '<div>생-093-군북공설시장화장실입구</div>', latlng: new kakao.maps.LatLng(35.2611625300826,128.3465889506) },
+{ content: '<div>생-094-대산버스터미널화장실입구(회전)</div>', latlng: new kakao.maps.LatLng(35.3530592899038,128.426458653382) },
+{ content: '<div>생-095-대산공설시장화장실입구</div>', latlng: new kakao.maps.LatLng(35.3521931747864,128.428099178882) },
+{ content: '<div>생-096-대산체육공원화장실입구</div>', latlng: new kakao.maps.LatLng(35.3564318394249,128.431107810128) },
+{ content: '<div>생-097-여항좌촌주차장화장실입구</div>', latlng: new kakao.maps.LatLng(35.2021179230977,128.424195899799) },
+{ content: '<div>생-098-칠원시장화장실입구</div>', latlng: new kakao.maps.LatLng(35.3058248974037,128.519846070912) },
+{ content: '<div>생-102-가야삼양건재후문삼거리</div>', latlng: new kakao.maps.LatLng(35.2789370347072,128.406610249992) },
+{ content: '<div>아-001-대산초교입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.3500588535195,128.431166482922) },
+{ content: '<div>아-002-칠원유원초교입구01(회전)</div>', latlng: new kakao.maps.LatLng(35.2982460442929,128.496742324359) },
+{ content: '<div>아-004-산인초교입구(회전)</div>', latlng: new kakao.maps.LatLng(35.2897573605931,128.431918009586) },
+{ content: '<div>아-005-함안초교입구01</div>', latlng: new kakao.maps.LatLng(35.2410454342364,128.422169004392) },
+{ content: '<div>아-006-법수초교주변01</div>', latlng: new kakao.maps.LatLng(35.3173767040504,128.381061450438) },
+{ content: '<div>아-007-가야중앙초교입구01</div>', latlng: new kakao.maps.LatLng(35.2926162963628,128.39977498507) },
+{ content: '<div>아-008-산인문암초교입구(회전)</div>', latlng: new kakao.maps.LatLng(35.2716375641023,128.457614660858) },
+{ content: '<div>아-009-군북월촌초교입구01</div>', latlng: new kakao.maps.LatLng(35.2919207233808,128.304016106174) },
+{ content: '<div>아-010-여항외암초교입구</div>', latlng: new kakao.maps.LatLng(35.2089200694317,128.434940803405) },
+{ content: '<div>아-011-가야초교정문01</div>', latlng: new kakao.maps.LatLng(35.2788277184258,128.40246713005) },
+{ content: '<div>아-012-가야초교후문02</div>', latlng: new kakao.maps.LatLng(35.278686253354,128.403635241209) },
+{ content: '<div>아-013-가야초교구후문01</div>', latlng: new kakao.maps.LatLng(35.2771677020947,128.402578392247) },
+{ content: '<div>아-014-가야신호등사거리01</div>', latlng: new kakao.maps.LatLng(35.2773173271932,128.404580604237) },
+{ content: '<div>아-015-가야함안유치원정문01</div>', latlng: new kakao.maps.LatLng(35.2763152127138,128.399705052147) },
+{ content: '<div>아-016-가야함안유치원뒷편01</div>', latlng: new kakao.maps.LatLng(35.2769741537006,128.399866539157) },
+{ content: '<div>아-017-가야주공217동앞도로01</div>', latlng: new kakao.maps.LatLng(35.2763951901052,128.398756914952) },
+{ content: '<div>아-018-가야화신건재삼거리01</div>', latlng: new kakao.maps.LatLng(35.2760071191025,128.400748845269) },
+{ content: '<div>아-019-칠원호암초교삼거리01</div>', latlng: new kakao.maps.LatLng(35.2750526564301,128.520983662995) },
+{ content: '<div>아-020-칠원호암초교앞공원01</div>', latlng: new kakao.maps.LatLng(35.2753863038007,128.52046336469) },
+{ content: '<div>아-021-벽산입구삼거리01</div>', latlng: new kakao.maps.LatLng(35.2769403082513,128.52043925492) },
+{ content: '<div>아-022-칠원자이아파트신호등삼거리01</div>', latlng: new kakao.maps.LatLng(35.2760468982539,128.52301863512) },
+{ content: '<div>아-023-칠원초교정문01</div>', latlng: new kakao.maps.LatLng(35.3072572756092,128.520137025557) },
+{ content: '<div>아-024-칠원초교후문01</div>', latlng: new kakao.maps.LatLng(35.305779033766,128.520184088629) },
+{ content: '<div>아-025-칠서초교정문01</div>', latlng: new kakao.maps.LatLng(35.3329081308819,128.4987722601) },
+{ content: '<div>아-026-칠서초교후문01</div>', latlng: new kakao.maps.LatLng(35.3326137436851,128.497828180467) },
+{ content: '<div>아-027-군북초교_비상벨05</div>', latlng: new kakao.maps.LatLng(35.2576686208763,128.34751414008) },
+{ content: '<div>아-027-군북초교정문01</div>', latlng: new kakao.maps.LatLng(35.2576686208763,128.34751414008) },
+{ content: '<div>아-028-가야아라초교정문01(회전)</div>', latlng: new kakao.maps.LatLng(35.2716070760671,128.409470683535) },
+{ content: '<div>아-029-가야함안성당01</div>', latlng: new kakao.maps.LatLng(35.2790004999984,128.404365700004) },
+{ content: '<div>아-030-함안초교앞(회전)</div>', latlng: new kakao.maps.LatLng(35.2407385460376,128.422099412875) },
+{ content: '<div>아-030-함안초교옆(회전)</div>', latlng: new kakao.maps.LatLng(35.2407385460376,128.422099412875) },
+{ content: '<div>아-031-칠원초교정문앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.3074412729538,128.519754817265) },
+{ content: '<div>아-032-칠북초교앞01</div>', latlng: new kakao.maps.LatLng(35.3472316511654,128.526898354762) },
+{ content: '<div>아-033-군북초교앞01</div>', latlng: new kakao.maps.LatLng(35.260782375054,128.34936908995) },
+{ content: '<div>아-034-칠북면칠서이령분교앞01</div>', latlng: new kakao.maps.LatLng(35.3654373688061,128.538635015718) },
+{ content: '<div>아-035-칠서이룡분교앞01</div>', latlng: new kakao.maps.LatLng(35.3869712106268,128.506185340886) },
+{ content: '<div>아-037-산인초교주변01</div>', latlng: new kakao.maps.LatLng(35.2897380219103,128.431137839598) },
+{ content: '<div>아-038-칠원유원초교주변01</div>', latlng: new kakao.maps.LatLng(35.2989840791588,128.498694626808) },
+{ content: '<div>아-039-가야중앙초교뒤01</div>', latlng: new kakao.maps.LatLng(35.2934197294205,128.400513955373) },
+{ content: '<div>아-040-법수초교입구01</div>', latlng: new kakao.maps.LatLng(35.3169237037229,128.37998009091) },
+{ content: '<div>아-041-군북월촌초교주변01</div>', latlng: new kakao.maps.LatLng(35.2929463996173,128.300926316001) },
+{ content: '<div>아-042-가야중앙2동회관앞01</div>', latlng: new kakao.maps.LatLng(35.2727783799338,128.410575180969) },
+{ content: '<div>아-043-가야군청사거리01</div>', latlng: new kakao.maps.LatLng(35.2730660040522,128.408136232385) },
+{ content: '<div>아-044-가야고려골든빌라맞은편01</div>', latlng: new kakao.maps.LatLng(35.2777223061609,128.40173874281) },
+{ content: '<div>아-046-칠원호암초교_비상벨04</div>', latlng: new kakao.maps.LatLng(35.2750936972935,128.520978661638) },
+{ content: '<div>아-047-칠원초교_비상벨03</div>', latlng: new kakao.maps.LatLng(35.3068703758435,128.520815525132) },
+{ content: '<div>아-048-가야금초롱어린이집앞01</div>', latlng: new kakao.maps.LatLng(35.2626833023944,128.397489442123) },
+{ content: '<div>아-049-가야꽃동산유치원앞01</div>', latlng: new kakao.maps.LatLng(35.244536526804,128.40814268941) },
+{ content: '<div>아-050-가야세라어린이집앞01</div>', latlng: new kakao.maps.LatLng(35.2568249388408,128.423145249102) },
+{ content: '<div>아-051-칠원유원초교뒷편01</div>', latlng: new kakao.maps.LatLng(35.2982093799188,128.49582225245) },
+{ content: '<div>아-052-법수초교뒷편01</div>', latlng: new kakao.maps.LatLng(35.3182077120502,128.38058064635) },
+{ content: '<div>아-053-칠서초교좌측문01</div>', latlng: new kakao.maps.LatLng(35.3324860434628,128.499320534488) },
+{ content: '<div>아-054-산인문암초교앞01</div>', latlng: new kakao.maps.LatLng(35.2716511728438,128.457755409033) },
+{ content: '<div>아-055-산인초교앞01(회전)</div>', latlng: new kakao.maps.LatLng(35.2893921444623,128.431084854621) },
+{ content: '<div>아-056-가야중앙약국뒷골목01</div>', latlng: new kakao.maps.LatLng(35.278221187818,128.404880637632) },
+{ content: '<div>아-057-가야해동아파트후문01</div>', latlng: new kakao.maps.LatLng(35.2770288211512,128.402829494579) },
+{ content: '<div>아-058-군북이태준기념관앞01</div>', latlng: new kakao.maps.LatLng(35.25971943976,128.34545452146) },
+{ content: '<div>아-059-함안함성중학교뒤01</div>', latlng: new kakao.maps.LatLng(35.2418815488572,128.420552161164) },
+{ content: '<div>아-060-칠서이룡보건소뒤01</div>', latlng: new kakao.maps.LatLng(35.3865533792108,128.502656471541) },
+{ content: '<div>아-061-칠원곡촌원룸촌01</div>', latlng: new kakao.maps.LatLng(35.2753207452887,128.533445075185) },
+{ content: '<div>아-062-가야한전뒤다인빌라앞01</div>', latlng: new kakao.maps.LatLng(35.2733581503586,128.397400074018) },
+{ content: '<div>아-063-가야함안여중앞01</div>', latlng: new kakao.maps.LatLng(35.2731617831914,128.401665742806) },
+{ content: '<div>아-064-가야함안중_비상벨</div>', latlng: new kakao.maps.LatLng(35.2813175868999,128.403621520089) },
+{ content: '<div>아-065-칠원중(회전)</div>', latlng: new kakao.maps.LatLng(35.31600519225,128.508141118449) },
+{ content: '<div>아-066-칠원유원초_비상벨</div>', latlng: new kakao.maps.LatLng(35.2987210949515,128.496506750029) },
+{ content: '<div>아-067-칠원예곡초_비상벨</div>', latlng: new kakao.maps.LatLng(35.275800433319,128.533431504903) },
+{ content: '<div>아-068-법수초_비상벨</div>', latlng: new kakao.maps.LatLng(35.3173767040504,128.381061450438) },
+{ content: '<div>아-070-대산중(회전)</div>', latlng: new kakao.maps.LatLng(35.3472494838788,128.438377882658) },
+{ content: '<div>아-071-칠서에이스아파트후문_칠서초(회전)</div>', latlng: new kakao.maps.LatLng(35.3150728516065,128.507200809621) },
+{ content: '<div>아-072-칠서이룡분교_비상벨</div>', latlng: new kakao.maps.LatLng(35.3869712106268,128.506185340886) },
+{ content: '<div>아-073-법수중(회전)</div>', latlng: new kakao.maps.LatLng(35.3140872376419,128.350888127697) },
+{ content: '<div>아-074-가야검암어린이공원(회전)</div>', latlng: new kakao.maps.LatLng(35.273117,128.421082) },
+{ content: '<div>아-075-가야도항2어린이공원</div>', latlng: new kakao.maps.LatLng(35.273624,128.398087) },
+{ content: '<div>아-076-가야말산업육성공원 놀이시설</div>', latlng: new kakao.maps.LatLng(35.250351,128.392349) },
+{ content: '<div>아-077-가야함주공원 안심놀이터</div>', latlng: new kakao.maps.LatLng(35.281456,128.400024) },
+{ content: '<div>아-078-칠원남구공원(LH) 놀이터(회전)</div>', latlng: new kakao.maps.LatLng(35.304123,128.523041) },
+{ content: '<div>아-079-칠원 제2놀이터</div>', latlng: new kakao.maps.LatLng(35.277496,128.517624) },
+{ content: '<div>아-080-칠원어린이 안심놀이터</div>', latlng: new kakao.maps.LatLng(35.310051,128.516129) },
+{ content: '<div>아-081-군북(구)군북역사공원 놀이터</div>', latlng: new kakao.maps.LatLng(35.259327,128.345795) },
+{ content: '<div>아-082-대산악양근린공원 숲속놀이터(회전)</div>', latlng: new kakao.maps.LatLng(35.338001,128.39743) },
+{ content: '<div>아-083-산인입곡군립공원 놀이터(회전)</div>', latlng: new kakao.maps.LatLng(35.264214,128.448502) },
+{ content: '<div>생-099-군북족구장화장실입구</div>', latlng: new kakao.maps.LatLng(35.264406,128.349390) },
+{ content: '<div>생-100-군북충무근린공원화장실입구</div>', latlng: new kakao.maps.LatLng(35.2758787,128.4597482) },
+{ content: '<div>생-101-법수대평늪화장실입구</div>', latlng: new kakao.maps.LatLng(35.3308861,128.3480665) },
+{ content: '<div>도-001-산인신당고개</div>', latlng: new kakao.maps.LatLng(35.2643129874132,128.489259058209) },
+{ content: '<div>차-가야아라초등앞도로(함안방향)</div>', latlng: new kakao.maps.LatLng(35.2714479562012,128.409636363977), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-가야초등앞도로(함안방향)</div>', latlng: new kakao.maps.LatLng(35.278686253354,128.403635241209), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-가야초등정문(아람마트방면)</div>', latlng: new kakao.maps.LatLng(35.278910565514,128.40267185705), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-가야초등정문(원동삼거리방면)</div>', latlng: new kakao.maps.LatLng(35.278910565514,128.40267185705), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-가야함안IC입구(12차)</div>', latlng: new kakao.maps.LatLng(35.291818481838,128.395613173998), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-가야함안중앞(법수방면12차)</div>', latlng: new kakao.maps.LatLng(35.2836358793358,128.402725571613), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북IC입구(12차로)</div>', latlng: new kakao.maps.LatLng(35.2821311922619,128.31777602449), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북구남강휴게소뒤</div>', latlng: new kakao.maps.LatLng(35.2694412284853,128.282719448825), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북봉산못앞(유현방향)</div>', latlng: new kakao.maps.LatLng(35.2932881035648,128.365683757039), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북소포삼거리(가야방면)</div>', latlng: new kakao.maps.LatLng(35.2739713127003,128.349665690378), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북소포삼거리(군북방면)</div>', latlng: new kakao.maps.LatLng(35.2739713127003,128.349665690378), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북신정암교12차로</div>', latlng: new kakao.maps.LatLng(35.3080079959791,128.296531730306), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북여명삼거리</div>', latlng: new kakao.maps.LatLng(35.2780767407782,128.318479224787), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북월촌방범초소(법수방향)</div>', latlng: new kakao.maps.LatLng(35.3090650697628,128.318266100819), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북장백로(군북방면)</div>', latlng: new kakao.maps.LatLng(35.3042456841084,128.331800550564), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북장백로(법수방면)</div>', latlng: new kakao.maps.LatLng(35.3042456841084,128.331800550564), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북장지IC입구(12차)</div>', latlng: new kakao.maps.LatLng(35.2926392093826,128.338439232456), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북초등학교앞(군북방향)</div>', latlng: new kakao.maps.LatLng(35.260887912592,128.349287640809), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북초등학교앞(시내방향)</div>', latlng: new kakao.maps.LatLng(35.260887912592,128.349287640809), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북하림마을입구(원북면방면)</div>', latlng: new kakao.maps.LatLng(35.2408015680196,128.326228714799), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북함안휴게소뒤(가야방면)</div>', latlng: new kakao.maps.LatLng(35.2946076208522,128.349304046441), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-군북함안휴게소뒤(법수방면)</div>', latlng: new kakao.maps.LatLng(35.2946076208522,128.349304046441), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-대산마산마을입구(가야방면)</div>', latlng: new kakao.maps.LatLng(35.3515831924063,128.439726160789), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-대산마산마을입구(대산방면)</div>', latlng: new kakao.maps.LatLng(35.3515831924063,128.439726160789), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-대산면함의로(칠원방면12차로)</div>', latlng: new kakao.maps.LatLng(35.3393913432837,128.447758786876), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-대산서촌마을(법수방면)</div>', latlng: new kakao.maps.LatLng(35.3369608192037,128.407374650234), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-대산송도삼거리(의령방면)</div>', latlng: new kakao.maps.LatLng(35.3598412510667,128.417562132142), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-법수강주사거리(강주사거리방면)</div>', latlng: new kakao.maps.LatLng(35.3201980228839,128.33067763968), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-법수강주사거리(정암방면)</div>', latlng: new kakao.maps.LatLng(35.3201980228839,128.33067763968), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-법수면사무소앞(강주동방면)</div>', latlng: new kakao.maps.LatLng(35.3140727859175,128.356044679137), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-법수면사무소앞(윤외동방면)</div>', latlng: new kakao.maps.LatLng(35.3140727859175,128.356044679137), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-법수백곡교(의령방면)</div>', latlng: new kakao.maps.LatLng(35.3340925914559,128.366498264868), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-법수악양삼거리(가야방면)</div>', latlng: new kakao.maps.LatLng(35.3189601054262,128.391160222634), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-법수악양삼거리(법수방면)</div>', latlng: new kakao.maps.LatLng(35.3189601054262,128.391160222634), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-산인대천교앞(가야방면)</div>', latlng: new kakao.maps.LatLng(35.2733029007178,128.447480546641), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-산인대천교앞(중리방면)</div>', latlng: new kakao.maps.LatLng(35.2733029007178,128.447480546641), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-산인면사무소앞(가야방면)</div>', latlng: new kakao.maps.LatLng(35.2786118220504,128.426011754908), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-산인면사무소앞(입곡방면)</div>', latlng: new kakao.maps.LatLng(35.2786118220504,128.426011754908), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-산인신당고개(마산방면12차로)</div>', latlng: new kakao.maps.LatLng(35.2641448708849,128.489695358617), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-산인운곡삼거리(가야방면)</div>', latlng: new kakao.maps.LatLng(35.3120087959578,128.450427581058), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-산인운곡삼거리(대산방면)</div>', latlng: new kakao.maps.LatLng(35.3120087959578,128.450427581058), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-여항진고개1,2차로</div>', latlng: new kakao.maps.LatLng(35.188371130166,128.460807622046), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠북봉촌리(내봉촌)</div>', latlng: new kakao.maps.LatLng(35.3630295940232,128.56861538904), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠북아산고개(창원방면)</div>', latlng: new kakao.maps.LatLng(35.3490988789943,128.560382435599), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠북이령분교(삼칠로방면)</div>', latlng: new kakao.maps.LatLng(35.3653606599022,128.538865997414), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠북이령분교(이령교방면)</div>', latlng: new kakao.maps.LatLng(35.3653606599022,128.538865997414), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠북이령삼거리(마금산온천방면)</div>', latlng: new kakao.maps.LatLng(35.360483336999,128.532143812511), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠북이령삼거리(칠북방면)</div>', latlng: new kakao.maps.LatLng(35.360483336999,128.532143812511), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서IC입구(입)</div>', latlng: new kakao.maps.LatLng(35.3227090074455,128.51129623753), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서IC입구(출)</div>', latlng: new kakao.maps.LatLng(35.3227090074455,128.51129623753), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서s-oil</div>', latlng: new kakao.maps.LatLng(35.3136553781269,128.503329020642), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서낙동대교(남지방면12차로)</div>', latlng: new kakao.maps.LatLng(35.3852512120262,128.514329520745), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서원서교옆(12차)</div>', latlng: new kakao.maps.LatLng(35.3153018633134,128.511344322684), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서이룡분교(삼칠로방면)</div>', latlng: new kakao.maps.LatLng(35.3870417057898,128.505790366214), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서이룡분교(칠서방면)</div>', latlng: new kakao.maps.LatLng(35.3870417057898,128.505790366214), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서청릉교칠서방면1차</div>', latlng: new kakao.maps.LatLng(35.3257986554261,128.504304934948), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서청릉교칠서방면2차</div>', latlng: new kakao.maps.LatLng(35.3257986554261,128.504304934948), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서청릉교칠원방면12차</div>', latlng: new kakao.maps.LatLng(35.3259482513534,128.504211690546), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서평계마을회관앞(칠북방향)</div>', latlng: new kakao.maps.LatLng(35.3411354984994,128.511167430253), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠서평계마을회관앞(칠서방향)</div>', latlng: new kakao.maps.LatLng(35.3411354984994,128.511167430253), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠원내담교주변(내서방면)</div>', latlng: new kakao.maps.LatLng(35.2698247955151,128.525517314525), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠원소목마을(진입)</div>', latlng: new kakao.maps.LatLng(35.3185717406745,128.56788106383), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠원소목마을(진출)</div>', latlng: new kakao.maps.LatLng(35.3185717406745,128.56788106383), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠원예곡슈퍼앞</div>', latlng: new kakao.maps.LatLng(35.2683277483787,128.530542084398), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠원예곡주유소1차로</div>', latlng: new kakao.maps.LatLng(35.2736735080242,128.531933678389), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠원예곡주유소23차로</div>', latlng: new kakao.maps.LatLng(35.2736735080242,128.531933678389), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-칠원자이아파트앞12차로</div>', latlng: new kakao.maps.LatLng(35.2762391172031,128.522701650144), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-함안대산리(입곡방면)</div>', latlng: new kakao.maps.LatLng(35.2487976403339,128.43632340181), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+{ content: '<div>차-함안대산리(함안방면)</div>', latlng: new kakao.maps.LatLng(35.2487976403339,128.43632340181), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/marker_red.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
+    
+{ content: '<div>01_가야읍01_도음_요청지</div>', latlng: new kakao.maps.LatLng(35.2664543016422, 128.3987470300827), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(0,0)}) },
+{ content: '<div>02_가야읍02_도화_요청지</div>', latlng: new kakao.maps.LatLng(35.30006899391689, 128.4043603721634), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>03_가야읍03_백산_요청지</div>', latlng: new kakao.maps.LatLng(35.257865840432764, 128.4095762356313), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>04_가야읍04_상검_요청지</div>', latlng: new kakao.maps.LatLng(35.267003587961874, 128.42370292277178), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>05_가야읍05_양포_요청지</div>', latlng: new kakao.maps.LatLng(35.31584100281861, 128.40385920899502), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>06_가야읍06_원동_요청지</div>', latlng: new kakao.maps.LatLng(35.27608178292205, 128.40177690331697), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>07_가야읍07_장명_요청지</div>', latlng: new kakao.maps.LatLng(35.30298503182567, 128.38664872737672), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>08_칠원읍01_곡촌_요청지</div>', latlng: new kakao.maps.LatLng(35.2761985052921, 128.53488910901387), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>09_칠원읍02_곡촌_요청지</div>', latlng: new kakao.maps.LatLng(35.27576576532565, 128.53347971781668), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>10_칠원읍03_동암_요청지</div>', latlng: new kakao.maps.LatLng( 35.29034590980422, 128.47751951195264), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>11_칠원읍04_동암_요청지</div>', latlng: new kakao.maps.LatLng(35.28624257420189, 128.4795827923085), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>12_칠원읍05_동암_요청지</div>', latlng: new kakao.maps.LatLng(35.28334902117027, 128.48147007381746), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>13_칠원읍06_남구_요청지</div>', latlng: new kakao.maps.LatLng(35.304318302780146, 128.52158982371037), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>14_칠원읍07_남구_요청지</div>', latlng: new kakao.maps.LatLng(35.3053469380077, 128.52005892928207), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>15_칠원읍08_남구_요청지</div>', latlng: new kakao.maps.LatLng(35.303993197172645, 128.5202095051809), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>16_칠원읍09_자이1,2,3_요청지</div>', latlng: new kakao.maps.LatLng(35.27066926328146, 128.52599882217592), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>17_칠원읍10_호곡_요청지</div>', latlng: new kakao.maps.LatLng(35.277698768883255, 128.5159756772552), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>18_칠원읍11_호곡_요청지</div>', latlng: new kakao.maps.LatLng(35.27716789771804, 128.51410843460513), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>19_칠원읍12_원구성_요청지</div>', latlng: new kakao.maps.LatLng(35.30633783984249, 128.5218860074915), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>20_칠원읍13_서상_요청지</div>', latlng: new kakao.maps.LatLng(35.307315395079016, 128.5186829909296), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>21_함안면01_대사_요청지</div>', latlng: new kakao.maps.LatLng(35.25452235050574, 128.42915268283244), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>22_함안면02_굴바대_요청지</div>', latlng: new kakao.maps.LatLng(35.21539802738933, 128.43265886744183), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>23_함안면03_신교_요청지</div>', latlng: new kakao.maps.LatLng(35.23647540671711, 128.42355501343553), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>24_함안면04_신개_요청지</div>', latlng: new kakao.maps.LatLng(35.25073562782648, 128.4207637073795), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>25_함안면05_금천_요청지</div>', latlng: new kakao.maps.LatLng(35.25411150762648, 128.43064797646085), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>26_함안면06_도림_요청지</div>', latlng: new kakao.maps.LatLng(35.249604380594775, 128.43091210897046), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>27_함안면07_강지_요청지</div>', latlng: new kakao.maps.LatLng(35.21788085491678, 128.43713662694086), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>28_군북면01_모로_요청지</div>', latlng: new kakao.maps.LatLng(35.264414468940664, 128.33070538281964), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>29_군북면02_중암_요청지</div>', latlng: new kakao.maps.LatLng(35.26125418445271, 128.34610333841806), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>30_군북면03_동촌_요청지</div>', latlng: new kakao.maps.LatLng(35.24509685308115, 128.35900036828187), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>31_군북면04_지곡_요청지</div>', latlng: new kakao.maps.LatLng(35.26249841495453, 128.3099331614368), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>32_군북면05_오`곡_요청지</div>', latlng: new kakao.maps.LatLng(35.210681745712456, 128.36902916786792), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>33_군북면06_오곡(새마을)_요청지</div>', latlng: new kakao.maps.LatLng(35.20710576230781, 128.3702429296087), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>34_군북면07_봉국1_요청지</div>', latlng: new kakao.maps.LatLng(35.26837210864336, 128.34830905436579), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>35_대산면01_평기_요청지</div>', latlng: new kakao.maps.LatLng(35.33977137695021, 128.40123051108162), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>36_대산면02_동촌_요청지</div>', latlng: new kakao.maps.LatLng(35.34122479516281, 128.4116717341977), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>37_대산면03_매산_요청지</div>', latlng: new kakao.maps.LatLng(35.353360520979415, 128.42792744725156), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>38_대산면04_고원_요청지</div>', latlng: new kakao.maps.LatLng(35.34105924403246, 128.4475723962227), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>39_대산면05_부촌_요청지</div>', latlng: new kakao.maps.LatLng(35.364176247952706, 128.46530235262057), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>40_대산면06_고원_요청지</div>', latlng: new kakao.maps.LatLng(35.34676794804193, 128.4511941746945), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>41_대산면07_평림_요청지</div>', latlng: new kakao.maps.LatLng(35.33355401705338, 128.4524701006921), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>42_대산면08_옥산_요청지</div>', latlng: new kakao.maps.LatLng( 35.33108613451945, 128.43612743609364), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>43_대산면09_신등_요청지</div>', latlng: new kakao.maps.LatLng(35.341360394681736, 128.43895727399584), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>44_대산면10_신등_요청지</div>', latlng: new kakao.maps.LatLng(35.33935646129781, 128.4428153028487), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>45_대산면11_동촌_요청지</div>', latlng: new kakao.maps.LatLng(35.34262086984511, 128.4123229803169), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+
+	
+	{ content: '<div>46_칠서면01_회문_요청지</div>', latlng: new kakao.maps.LatLng(35.308493914443886, 128.50126091816952), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>47_칠서면02_평계_요청지</div>', latlng: new kakao.maps.LatLng(35.34101737525724, 128.5106422695467), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>48_칠서면03_창동_요청지</div>', latlng: new kakao.maps.LatLng(35.3343647465347, 128.496823192151), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>49_칠서면04_신산_요청지</div>', latlng: new kakao.maps.LatLng(35.313105523667986, 128.4982097906209), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>50_칠서면05_송락_요청지</div>', latlng: new kakao.maps.LatLng(35.38155001571821, 128.5030535522999), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>51_칠서면06_송락_요청지</div>', latlng: new kakao.maps.LatLng(35.38560828819802, 128.50355528847058), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>52_칠서면07_산성_요청지</div>', latlng: new kakao.maps.LatLng(35.31950285116336, 128.50937326162727), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>53_칠서면08_신계_요청지</div>', latlng: new kakao.maps.LatLng(35.383067891072, 128.48855287159756), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>54_칠서면09_본용성_요청지</div>', latlng: new kakao.maps.LatLng(35.385592575441855, 128.49774713534413), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>55_칠서면10_신기_요청지</div>', latlng: new kakao.maps.LatLng(35.38774314555087, 128.50146540104294), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>56_칠서면11_본용성_요청지</div>', latlng: new kakao.maps.LatLng(35.38436120949782, 128.49484249072668), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+
+	{ content: '<div>57_칠북면01_봉촌_요청지</div>', latlng: new kakao.maps.LatLng(35.367319464900945, 128.5657825606422), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>58_칠북면02_봉촌_요청지</div>', latlng: new kakao.maps.LatLng(35.36344776716207, 128.56742131699986), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>59_칠북면03_어연_요청지</div>', latlng: new kakao.maps.LatLng(35.338181454128005, 128.5279725728245), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>60_칠북면04_어연_요청지</div>', latlng: new kakao.maps.LatLng(35.337204279315785, 128.52381605044087), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>61_칠북면05_화천_요청지</div>', latlng: new kakao.maps.LatLng(35.3490856024373, 128.51379412404302), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>62_칠북면06_아산_요청지</div>', latlng: new kakao.maps.LatLng(35.349068061471115, 128.56069197867984), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>63_칠북면07_덕촌_요청지</div>', latlng: new kakao.maps.LatLng(35.38145762215673, 128.5270372209942), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>64_칠북면08_덕촌_요청지</div>', latlng: new kakao.maps.LatLng(35.3737155718499, 128.53188682174823), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>65_칠북면09_덕촌_요청지</div>', latlng: new kakao.maps.LatLng(35.37415703628728, 128.53580135143338), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>66_산인면01_하송_요청지</div>', latlng: new kakao.maps.LatLng(35.28783198270257, 128.42910179788865), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>67_산인면02_하송_요청지</div>', latlng: new kakao.maps.LatLng(35.28727352065062, 128.4290754942751), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>68_산인면03_산익_요청지</div>', latlng: new kakao.maps.LatLng(35.26040378855212, 128.46831716197406), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>69_산인면04_구일_요청지</div>', latlng: new kakao.maps.LatLng(35.29614493407712, 128.43099994402527), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>70_산인면05_구일_요청지</div>', latlng: new kakao.maps.LatLng(35.29955911870738, 128.42865250562735), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>71_산인면06_갈전_요청지</div>', latlng: new kakao.maps.LatLng(35.27585882123566, 128.46349805080715), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>72_여항면01_감현_요청지</div>', latlng: new kakao.maps.LatLng(35.19347694575202, 128.43058306828038), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>73_여항면02_대산_요청지</div>', latlng: new kakao.maps.LatLng(35.19575388993596, 128.42723036532323), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>74_여항면03_대촌_요청지</div>', latlng: new kakao.maps.LatLng(35.19644328247436, 128.42455794338892), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+{ content: '<div>75_여항면04_두곡_요청지</div>', latlng: new kakao.maps.LatLng(35.20652226972, 128.45087381908186), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
+
+
+];
+
+    
+    
+for (var i = 0; i < positions.length; i ++) {
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커의 위치
+        image:positions[i].markerImage
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
+/* 아래와 같이도 할 수 있습니다 */
+/*
+for (var i = 0; i < positions.length; i ++) {
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng // 마커의 위치
+    });
+    // 마커에 표시할 인포윈도우를 생성합니다 
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
+    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    (function(marker, infowindow) {
+        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
+        kakao.maps.event.addListener(marker, 'mouseover', function() {
+            infowindow.open(map, marker);
+        });
+        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
+        kakao.maps.event.addListener(marker, 'mouseout', function() {
+            infowindow.close();
+        });
+    })(marker, infowindow);
+}
+*/
+  
+</script>
+<div id="menu_wrap" class="bg_white" style="border:1px solid #919191;border-radius:10px;">
+<div id="input-form">
+<img src="https://ajubang.com/mm/op/m/search.png" style="margin-top: 1px; margin-right: 3px;vertical-align: bottom"><input type="text" id="keyword"  style="width:100px" /><span><span><button onclick="btnsearch_click()" class="bsuccess">주소</button></span><span class="count"></span>
+</div>
+    
+    <div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.2664543016422, 128.3987470300827)' id='tchk1'>01_가야읍01_도음_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.30006899391689, 128.4043603721634)' id='tchk2'>02_가야읍02_도화_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.257865840432764, 128.4095762356313)' id='tchk3'>03_가야읍03_백산_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.267003587961874, 128.42370292277178)' id=tchk1>04_가야읍04_상검_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.31584100281861, 128.40385920899502)' id=tchk1>05_가야읍05_양포_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.27608178292205, 128.40177690331697)' id=tchk1>06_가야읍06_원동_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.30298503182567, 128.38664872737672)' id=tchk1>07_가야읍07_장명_요청지</div>
+<br>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.2761985052921, 128.53488910901387)' id=tchk1>08_칠원읍01_곡촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.27576576532565, 128.53347971781668)' id=tchk1>09_칠원읍02_곡촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter( 35.29034590980422, 128.47751951195264)' id=tchk1>10_칠원읍03_동암_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.28624257420189, 128.4795827923085)' id=tchk1>11_칠원읍04_동암_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.28334902117027, 128.48147007381746)' id=tchk1>12_칠원읍05_동암_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.304318302780146, 128.52158982371037)' id=tchk1>13_칠원읍06_남구_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.3053469380077, 128.52005892928207)' id=tchk1>14_칠원읍07_남구_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.303993197172645, 128.5202095051809)' id=tchk1>15_칠원읍08_남구_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.27066926328146, 128.52599882217592)' id=tchk1>16_칠원읍09_자이1,2,3_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.277698768883255, 128.5159756772552)' id=tchk1>17_칠원읍10_호곡_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.27716789771804, 128.51410843460513)' id=tchk1>18_칠원읍11_호곡_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.30633783984249, 128.5218860074915)' id=tchk1>19_칠원읍12_원구성_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.307315395079016, 128.5186829909296)' id=tchk1>20_칠원읍13_서상_요청지</div>
+<br>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.25452235050574, 128.42915268283244)' id=tchk1>21_함안면01_대사_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.21539802738933, 128.43265886744183)' id=tchk1>22_함안면02_굴바대_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.23647540671711, 128.42355501343553)' id=tchk1>23_함안면03_신교_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.25073562782648, 128.4207637073795)' id=tchk1>24_함안면04_신개_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.25411150762648, 128.43064797646085)' id=tchk1>25_함안면05_금천_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.249604380594775, 128.43091210897046)' id=tchk1>26_함안면06_도림_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.21788085491678, 128.43713662694086)' id=tchk1>27_함안면07_강지_요청지</div>
+<br>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.264414468940664, 128.33070538281964)' id=tchk1>28_군북면01_모로_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.26125418445271, 128.34610333841806)' id=tchk1>29_군북면02_중암_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.24509685308115, 128.35900036828187)' id=tchk1>30_군북면03_동촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.26249841495453, 128.3099331614368)' id=tchk1>31_군북면04_지곡_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.210681745712456, 128.36902916786792)' id=tchk1>32_군북면05_오`곡_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.20710576230781, 128.3702429296087)' id=tchk1>33_군북면06_오곡(새마을)_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.26837210864336, 128.34830905436579)' id=tchk1>34_군북면07_봉국1_요청지</div>
+<br>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.33977137695021, 128.40123051108162)' id=tchk1>35_대산면01_평기_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.34122479516281, 128.4116717341977)' id=tchk1>36_대산면02_동촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.353360520979415, 128.42792744725156)' id=tchk1>37_대산면03_매산_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.34105924403246, 128.4475723962227)' id=tchk1>38_대산면04_고원_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.364176247952706, 128.46530235262057)' id=tchk1>39_대산면05_부촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.34676794804193, 128.4511941746945)' id=tchk1>40_대산면06_고원_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.33355401705338, 128.4524701006921)' id=tchk1>41_대산면07_평림_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter( 35.33108613451945, 128.43612743609364)' id=tchk1>42_대산면08_옥산_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.341360394681736, 128.43895727399584)' id=tchk1>43_대산면09_신등_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.33935646129781, 128.4428153028487)' id=tchk1>44_대산면10_신등_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.34262086984511, 128.4123229803169)' id=tchk1>45_대산면11_동촌_요청지</div>
+<br>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.308493914443886, 128.50126091816952)' id=tchk1>46_칠서면01_회문_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.34101737525724, 128.5106422695467)' id=tchk1>47_칠서면02_평계_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.3343647465347, 128.496823192151)' id=tchk1>48_칠서면03_창동_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.313105523667986, 128.4982097906209)' id=tchk1>49_칠서면04_신산_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.38155001571821, 128.5030535522999)' id=tchk1>50_칠서면05_송락_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.38560828819802, 128.50355528847058)' id=tchk1>51_칠서면06_송락_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.31950285116336, 128.50937326162727)' id=tchk1>52_칠서면07_산성_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.383067891072, 128.48855287159756)' id=tchk1>53_칠서면08_신계_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.385592575441855, 128.49774713534413)' id=tchk1>54_칠서면09_본용성_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.38774314555087, 128.50146540104294)' id=tchk1>55_칠서면10_신기_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.38436120949782, 128.49484249072668)' id=tchk1>56_칠서면11_본용성_요청지</div>
+	<br>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.367319464900945, 128.5657825606422)' id=tchk1>57_칠북면01_봉촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.36344776716207, 128.56742131699986)' id=tchk1>58_칠북면02_봉촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.338181454128005, 128.5279725728245)' id=tchk1>59_칠북면03_어연_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.337204279315785, 128.52381605044087)' id=tchk1>60_칠북면04_어연_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.3490856024373, 128.51379412404302)' id=tchk1>61_칠북면05_화천_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.349068061471115, 128.56069197867984)' id=tchk1>62_칠북면06_아산_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.38145762215673, 128.5270372209942)' id=tchk1>63_칠북면07_덕촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.3737155718499, 128.53188682174823)' id=tchk1>64_칠북면08_덕촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.37415703628728, 128.53580135143338)' id=tchk1>65_칠북면09_덕촌_요청지</div>
+<br>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.28783198270257, 128.42910179788865)' id=tchk1>66_산인면01_하송_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.28727352065062, 128.4290754942751)' id=tchk1>67_산인면02_하송_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.26040378855212, 128.46831716197406)' id=tchk1>68_산인면03_산익_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.29614493407712, 128.43099994402527)' id=tchk1>69_산인면04_구일_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.29955911870738, 128.42865250562735)' id=tchk1>70_산인면05_구일_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.27585882123566, 128.46349805080715)' id=tchk1>71_산인면06_갈전_요청지</div>
+<br>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.19347694575202, 128.43058306828038)' id=tchk1>72_여항면01_감현_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.19575388993596, 128.42723036532323)' id=tchk1>73_여항면02_대산_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.19644328247436, 128.42455794338892)' id=tchk1>74_여항면03_대촌_요청지</div>
+<div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.20652226972, 128.45087381908186)' id=tchk1>75_여항면04_두곡_요청지</div>
+
+
+
+
+</div>
+
+ 
+<script>
+
+function save_PC(num)
+{
+
+        mMP_OD = "input_MP_OD["+num+"]";
+        mMP_PC = "input_MP_PC["+num+"]";        
+        mMP_ID = "input_MP_ID["+num+"]";                
+        mMP_UM = "input_MP_UM["+num+"]";                        
+
+        
+        ms_list = "#s_list"+num;
+
+         $("#btn_sql").html('수정중 '+ "|" +  document.getElementById(mMP_ID).value + "|" + document.getElementById(mMP_OD).value +  "|" + document.getElementById(mMP_PC).value);        
+
+         $msg_data = "MPC" +"|"+document.getElementById(mMP_ID).value+"|"+document.getElementById(mMP_OD).value+"|"+  regExp(document.getElementById(mMP_PC).value, 4);
+
+        $("#btn_sql").html($msg_data);
+        //console.log($msg_data);
+
+
+//        $("img").attr("src").replace("https://tistory4.daumcdn.net/tistory/1873809/skin/images/rm1.png","https://tistory4.daumcdn.net/tistory/1873809/skin/images/gm1.png");
+
+
+        $.ajax({
+        url:'/mm/op/map_crud.php',
+        dataType:'json',
+        type:'POST',
+        data:{'msg':$msg_data},
+        success:function(result){
+            if(result['result']==true){
+                //$("#result").html(result['msg']);                        
+               // location.reload();
+
+               //$mMT_MS 0 red번호 / 1 blue번호 / 2 red일반  / 3 blue일반 / 4 red점 / 5 미니점               
+
+               //alert(document.getElementById(mMP_UM).value);
+               
+               if (regExp(document.getElementById(mMP_PC).value, 4) != '') {
+                    //업무내용이 있다면
+                    x = $("img[src$='"+mark_imgsrc+"rm"+num+".png']");
+                    
+                    
+                    x.attr('src',mark_imgsrc+'gm'+num+'.png');                    if (u_mark_type == 2) {
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'gm.png', imageSize, imageOption);                                            
+                        
+                                           
+                        markers[num-1].setImage(markerImage);                    
+                    }
+                    if (u_mark_type == 3) {
+                                       
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'gm.png', imageSize, imageOption);             
+                        markers[num-1].setImage(markerImage);                    
+                    }                    
+                    if (u_mark_type == 4) {
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'gss.png', imageSize, imageOption);                    
+                        markers[num-1].setImage(markerImage);                    
+                    }  
+                    if (u_mark_type == 5) {
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'gss.png', imageSize, imageOption);                    
+                        markers[num-1].setImage(markerImage);                    
+                    }                                                   
+                    if (u_mark_type == 6) {
+                        var mMP_OD_N = document.getElementById(mMP_OD).value;
+                        if (mMP_OD_N == '0') mMP_OD_N = '';
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'gm' + mMP_OD_N + '.png', imageSize, imageOption);                                                     
+                        
+                        markers[num-1].setImage(markerImage);                    
+                    }                           
+
+                    if (document.getElementById(mMP_UM).value != '') {
+                        if (document.getElementById(mMP_UM).value.indexOf('/mm/op/user/') >= 0) {
+                            var markerImage = new kakao.maps.MarkerImage(document.getElementById(mMP_UM).value.replace('/mm/op/user/','/mm/op/user/done/'), imageSize, imageOption);                    
+                            markers[num-1].setImage(markerImage);                    
+                        }                            
+                    }                                             
+
+                    //$(ms_list).text('dfdsfdsf');                    
+                    $(ms_list).html('<del>' + $(ms_list).text() + '</del>');                                        
+
+                } else {
+                    //업무내용이 없다면
+                    
+
+                    x = $("img[src$='"+mark_imgsrc+"gm"+num+".png']");                    x.attr("src",mark_imgsrc+'rm'+num+'.png');                    
+                    
+                    //x = $("img[src$='"+mark_imgsrc+"gm.png']");
+                    //x.attr("src",mark_imgsrc+'rm'+'.png');                                        
+                    if (u_mark_type == 2) {
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'rm.png', imageSize, imageOption);                    
+                        markers[num-1].setImage(markerImage);
+                    }
+                    if (u_mark_type == 3) {
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc +'bm.png', imageSize, imageOption);                    
+                        markers[num-1].setImage(markerImage);
+                    }                    
+                    if (u_mark_type == 4) {
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'ss.png', imageSize, imageOption);                    
+                        markers[num-1].setImage(markerImage);                    
+                    }                      
+                    if (u_mark_type == 5) {
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'sss.png', imageSize, imageOption);                    
+                        markers[num-1].setImage(markerImage);                    
+                    }                                          
+                    if (u_mark_type == 6) {
+                        var mMP_OD_N = document.getElementById(mMP_OD).value;
+                        if (mMP_OD_N == '0') mMP_OD_N = '';                        
+                        var markerImage = new kakao.maps.MarkerImage(mark_imgsrc + 'rm' + mMP_OD_N + '.png', imageSize, imageOption);                    
+                        markers[num-1].setImage(markerImage);                    
+                    }                                          
+
+                    if (document.getElementById(mMP_UM).value != '') {
+                        if (document.getElementById(mMP_UM).value.indexOf('/mm/op/user/') >= 0) {                        
+                            var markerImage = new kakao.maps.MarkerImage(document.getElementById(mMP_UM).value, imageSize, imageOption);                    
+                            markers[num-1].setImage(markerImage);                    
+                        }
+                    }     
+
+
+                    $(ms_list).html( $(ms_list).text().replace('<del>','').replace('</del>',''));                           
+                };
+                HideAllInfos();                        
+
+
+            }
+        }
+        });      
+
+
+
+
+}
+
+function save_one_PC(num)
+{
+    mMP_PC = "input_MP_PC["+num+"]";        
+    if ((document.getElementById(mMP_PC).value) == '') document.getElementById(mMP_PC).value = "완료";
+    save_PC(num);
+}
+
+
+
+var interval;
+
+function setRealPos_m() {
+    var control = document.getElementById('realPos_m');
+    // 버튼이 눌린 상태가 아니면
+    if (control.className.indexOf('active') === -1) {
+        control.className = 'active';
+
+        interval = setInterval(function() {                
+                     
+            mapCurrentPosition2();            
+        
+        }, 1000);
+
+
+
+    } else {
+        control.className = '';
+        clearInterval(interval);
+        
+    }
+}
+
+function setOverlayMapType_m() {
+    var control = document.getElementById('overlayMapType_m');
+    var chkuseDistrict = document.getElementById('chkuseDistrict');
+    // 버튼이 눌린 상태가 아니면
+    if (control.className.indexOf('active') === -1) {
+        control.className = 'active';
+        for (var type in mapTypes) {
+            map.removeOverlayMapTypeId(mapTypes[type]);            }
+    // 지적편집도정보 체크박스가 체크되어있으면 지도에 지적편집도정보 지도타입을 추가합니다
+        map.addOverlayMapTypeId(mapTypes.useDistrict);       
+    } else {
+        control.className = '';
+        for (var type in mapTypes) {
+            map.removeOverlayMapTypeId(mapTypes[type]);    
+        }        
+        // 로드뷰 도로 오버레이를 제거합니다
+        //toggleOverlay(false);
+    }
+}
+
+
+
+
+$("#keyword").keyup(function() {
+                var k = $(this).val();
+                $(".sel_text").hide();
+                var temp = $(".sel_text:contains('" + k + "')");
+
+                $(temp).show();
+                $('.count').text(temp.length);                
+            })
+
+function btnsearch_click(){
+
+$msg_data = "YX" +"|"+ $('#keyword').val();
+
+    //console.log($msg_data);
+
+$.ajax({
+url:'https://ajubang.com/map/tools/op.php',
+dataType:'json',
+type:'POST',
+data:{'msg':$msg_data},
+success:function(result){
+    if(result['result']==true){
+        $("#gpsyx").val(result['msg']);                        
+        //location.reload();        
+        //alert(result['msg']);                
+        var mGPSYX = result['msg'].split(",");
+        if (mGPSYX[0] != '') setCenter(mGPSYX[0], mGPSYX[1])
+    }
+}
+});      
+
+}                 
+
+
+</script>
+
+</body>
+</html>
