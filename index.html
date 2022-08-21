@@ -1,4 +1,5 @@
 
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -738,12 +739,22 @@ for (var i = 0; i < positions.length; i ++) {
     })(marker, infowindow);
 }
 */
-  
+ function Enter_Check(){
+        // 엔터키의 코드는 13입니다.
+    if(event.keyCode == 13){
+        btnsearch_click();  // 실행할 이벤트
+    }
+}
+ 
 </script>
 <div id="menu_wrap" class="bg_white" style="border:1px solid #919191;border-radius:10px;">
 <div id="input-form">
-<img src="https://ajubang.com/mm/op/m/search.png" style="margin-top: 1px; margin-right: 3px;vertical-align: bottom"><input type="text" id="keyword"  style="width:100px" /><span><span><button onclick="btnsearch_click()" class="bsuccess">이동</button></span><span class="count"></span>
+<img src="https://ajubang.com/mm/op/m/search.png" style="margin-top: 11px; margin-right: 3px;vertical-align: bottom">
+    <input type="text" id="keyword" onkeydown='Enter_Check();'  style="width:90px" /><span>
+    <span><button onclick="btnsearch_click()" style="vertical-align: bottom" class="bsuccess">이동</button></span><span class="count"></span>
 </div>
+    
+    
     
     <div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.2664543016422, 128.3987470300827)' id='tchk1'>01_가야읍01_도음_요청지</div>
 <div class='sel_text' style='cursor: pointer;' onClick='setCenter(35.30006899391689, 128.4043603721634)' id='tchk2'>02_가야읍02_도화_요청지</div>
