@@ -1,3 +1,4 @@
+
    <style>
 #container {overflow:hidden;height:100%;position:relative;}
 #mapWrapper {width:100%;height:100%;z-index:1;}
@@ -7,7 +8,6 @@
 #roadviewControl.active {background-position:0 -350px;}
 #close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
 #close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}
-
 	    
  html, body {width:100%;height:100%;margin:0;padding:0;overflow: hidden}
         
@@ -97,17 +97,17 @@ var markImage = new kakao.maps.MarkerImage(
 );
 
 // 드래그가 가능한 마커를 생성합니다
-var marker = new kakao.maps.Marker({
+var markerrv = new kakao.maps.Marker({
     image : markImage,
     position: mapCenter,
     draggable: true
 });
 
 // 마커에 dragend 이벤트를 등록합니다
-kakao.maps.event.addListener(marker, 'dragend', function(mouseEvent) {
+kakao.maps.event.addListener(markerrv, 'dragend', function(mouseEvent) {
 
     // 현재 마커가 놓인 자리의 좌표입니다 
-    var position = marker.getPosition();
+    var position = markerrv.getPosition();
 
     // 마커가 놓인 위치를 기준으로 로드뷰를 설정합니다
     toggleRoadview(position);
@@ -125,7 +125,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent){
     var position = mouseEvent.latLng;
 
     // 마커를 클릭한 위치로 옮깁니다
-    marker.setPosition(position);
+    markerrv.setPosition(position);
 
     // 클락한 위치를 기준으로 로드뷰를 설정합니다
     toggleRoadview(position);
@@ -184,10 +184,10 @@ function toggleOverlay(active) {
         map.addOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
 
         // 지도 위에 마커를 표시합니다
-        marker.setMap(map);
+        markerrv.setMap(map);
 
         // 마커의 위치를 지도 중심으로 설정합니다 
-        marker.setPosition(map.getCenter());
+        markerrv.setPosition(map.getCenter());
 
         // 로드뷰의 위치를 지도 중심으로 설정합니다
         toggleRoadview(map.getCenter());
@@ -198,7 +198,7 @@ function toggleOverlay(active) {
         map.removeOverlayMapTypeId(kakao.maps.MapTypeId.ROADVIEW);
 
         // 지도 위의 마커를 제거합니다
-        marker.setMap(null);
+        markerrv.setMap(null);
     }
 }
 
@@ -262,7 +262,7 @@ map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
 
 
 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-var positions = [
+var positions1 = [
 	{ content: '<div>문-001-가야동산정01</div>', latlng: new kakao.maps.LatLng(35.265974103225,128.424543329418), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/gmark.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
 { content: '<div>문-002-함안향교01</div>', latlng: new kakao.maps.LatLng(35.2363014988955,128.418194091563), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/gmark.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
 { content: '<div>문-003-칠원새발자국화석01(회전)</div>', latlng: new kakao.maps.LatLng(35.3103216999982,128.513169600003), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/gmark.png', imageSize = new kakao.maps.Size(40, 42), imageOption = {offset: new kakao.maps.Point(14,42)}) },
@@ -998,12 +998,11 @@ var positions = [
 { content: '<div>74_여항면03_대촌_요청지</div>', latlng: new kakao.maps.LatLng(35.19644328247436, 128.42455794338892), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
 { content: '<div>75_여항면04_두곡_요청지</div>', latlng: new kakao.maps.LatLng(35.20652226972, 128.45087381908186), markerImage: new daum.maps.MarkerImage('https://raw.githubusercontent.com/kang-chan/hamancctv2/main/red_point.png', imageSize = new kakao.maps.Size(20, 21), imageOption = {offset: new kakao.maps.Point(10,5)}) },
 
-	
 ];
 
     
     
-for (var i = 0; i < positions.length; i ++) {
+for (var i = 0; i < positions1.length; i ++) {
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
