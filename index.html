@@ -3,6 +3,7 @@
 
 
 
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -248,7 +249,8 @@ function closeRoadview() {
 function setCenter(Lat, Lng) {
     // 이동할 위도 경도 위치를 생성합니다 
     var moveLatLon = new daum.maps.LatLng(Lat, Lng);
-  
+  map.setLevel(4);
+
     // 지도 중심을 이동 시킵니다
     map.panTo(moveLatLon);
 var circle = new daum.maps.Circle({
@@ -1118,6 +1120,7 @@ marker1.setDraggable(true);
 
 
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			     map.setLevel(4);
 		        map.setCenter(coords);
 		    
             var circle = new daum.maps.Circle({
@@ -1161,6 +1164,7 @@ function placesSearchCB (data, status, pagination) {
  var bounds = new kakao.maps.LatLng(data[0].y, data[0].x);
           
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+	    map.setLevel(4);
         map.setCenter(bounds);
                var circle = new daum.maps.Circle({
     center : bounds,  // 원의 중심좌표 입니다 
