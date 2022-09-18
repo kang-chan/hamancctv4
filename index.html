@@ -1,4 +1,8 @@
 
+
+
+
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -44,6 +48,12 @@
         <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
     </div>
 </div>
+  <!-- 2-2. input:text 태그 -->
+    <button id="btn_input_copy" style= "position:absolute;top:12;width:45;right:285;z-index:200">복사</button>
+ <input type="text" class='form-control' style= "position:absolute;top:13;width:270;right:10;z-index:20" id = "gpsyx" value ="35.2725308711779, 128.406307024695"></button>
+
+   <input type="text" id="keyword" onkeyup="filter()" onkeydown="Enter_Check()" class="clickdown" style="position:absolute;top:13;width:300;left:210;z-index:200"/>
+   <button id="searchBtn" onclick="btnsearch_click()" style="position:absolute;top:12;width:45;left:160;z-index:20" class="bsuccess" >검색</button>
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2634b7b6dd61e41a4d6c0bf40a2ef820&libraries=services,clusterer,drawing"></script>
@@ -235,7 +245,7 @@ function closeRoadview() {
     toggleMapWrapper(true, position);
 }
 
-function setCenter(Lat, Lng) {            
+function setCenter(Lat, Lng) {
     // 이동할 위도 경도 위치를 생성합니다 
     var moveLatLon = new daum.maps.LatLng(Lat, Lng);
   
@@ -257,12 +267,10 @@ circle.setMap(map);
 setTimeout(function(){
 circle.setMap(null);    ;
 }, 2000);        
-    
 }
 
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
 var mapTypeControl = new kakao.maps.MapTypeControl();
-
 // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
 // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
 map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
@@ -1046,14 +1054,13 @@ function makeOutListener(infowindow) {
     };
 }
 
-
  function Enter_Check(){
         // 엔터키의 코드는 13입니다.
     if(event.keyCode == 13){
         btnsearch_click();  // 실행할 이벤트
     }
 }
-    
+
  function doClick(element) {
 	divText = $(element).html();
   $('#status').html('You clicked on: ' + divText);
@@ -1088,7 +1095,121 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
         $('#gpsyx').val(latlng.getLat() + ', ' + latlng.getLng());  
 });
     
-      
+
+        function btnsearch_click() {
+
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch($('#keyword').val(), function(result, status) {
+	
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker1 = new kakao.maps.Marker({
+		            map: map,
+                    image: markerImage1,
+		            position: coords
+		        });     
+
+marker1.setDraggable(true); 
+
+
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    
+            var circle = new daum.maps.Circle({
+    center : coords,  // 원의 중심좌표 입니다 
+    radius: 100, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 1, // 선의 두께입니다 
+    strokeColor: '#ffa500', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#FF1000', // 채우기 색깔입니다
+    fillOpacity: 0.3  // 채우기 불투명도 입니다   
+}); 
+
+// 지도에 원을 표시합니다 
+circle.setMap(map);     
+setTimeout(function(){
+circle.setMap(null);    
+}, 2000)
+    var obj = document.getElementsByClassName('clickdown');
+        for (var i = 0; i < obj.length; i++) {
+            obj[i].value = '';
+        }
+
+             }
+        
+            else {
+                // 장소 검색 객체를 생성합니다
+var ps = new kakao.maps.services.Places(); 
+
+// 키워드로 장소를 검색합니다
+ps.keywordSearch($('#keyword').val(), placesSearchCB); 
+
+// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+function placesSearchCB (data, status, pagination) {
+    if (status === kakao.maps.services.Status.OK) {
+
+       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+       
+            displayMarker(data[0]);    
+ var bounds = new kakao.maps.LatLng(data[0].y, data[0].x);
+          
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setCenter(bounds);
+               var circle = new daum.maps.Circle({
+    center : bounds,  // 원의 중심좌표 입니다 
+    radius: 100, // 미터 단위의 원의 반지름입니다 
+    strokeWeight: 1, // 선의 두께입니다 
+    strokeColor: '#ffa500', // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'dashed', // 선의 스타일 입니다
+    fillColor: '#FF1000', // 채우기 색깔입니다
+    fillOpacity: 0.3  // 채우기 불투명도 입니다   
+}); 
+
+// 지도에 원을 표시합니다 
+circle.setMap(map);     
+setTimeout(function(){
+circle.setMap(null);    
+}, 2000)        
+    }
+}
+    var obj = document.getElementsByClassName('clickdown');
+        for (var i = 0; i < obj.length; i++) {
+            obj[i].value = '';
+        }
+                
+// 지도에 마커를 표시하는 함수입니다
+function displayMarker(place) {
+    
+    // 마커를 생성하고 지도에 표시합니다
+    var marker1 = new kakao.maps.Marker({
+        map: map,
+        image: markerImage1,
+        position: new kakao.maps.LatLng(place.y, place.x) 
+    });
+
+    // 마커에 클릭이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, 'click', function() {
+        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+        infowindow.open(map, marker);
+    });
+}
+
+
+
+		};  
+	});
+        };
+    
+    
 // 지도를 클릭한 위치에 표출할 마커입니다
     var imageSrc = 'https://raw.githubusercontent.com/kang-chan/hamancctv2/main/rainbow.png', // 마커이미지의 주소입니다    
     imageSize = new kakao.maps.Size(40, 50), // 마커이미지의 크기입니다
@@ -1120,10 +1241,9 @@ var position = marker1.getPosition();
 // 지도에 클릭 이벤트를 등록합니다
 // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-    
-    // 클릭한 위도, 경도 정보를 가져옵니다 
-    var latlng = mouseEvent.latLng; 
-    
+
+    // 클릭한 위도, 경도 정보를 가져옵니다
+    var latlng = mouseEvent.latLng;
     // 마커 위치를 클릭한 위치로 옮깁니다
     marker1.setPosition(latlng);
 
@@ -1132,19 +1252,13 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     $('#gpsyx').val(latlng.getLat() + ', ' + latlng.getLng());  
 });
 
-   
+ 
 
 
     
 </script>
 
-    <!-- 2-2. input:text 태그 -->
-    <button id="btn_input_copy" style= "position:absolute;top:12;width:45;right:285;z-index:200">복사</button>
- <input type="text" class='form-control' style= "position:absolute;top:13;width:270;right:10;z-index:20" id = "gpsyx" value ="35.2725308711779, 128.406307024695"></button>
-
-   <input type="text" id="keyword" onkeyup="filter()" onkeydown="Enter_Check()" style="position:absolute;top:13;width:300;left:235;z-index:200"/>
-   <button tabindex="-1" id="searchBtn" onclick="btnsearch_click()" style="position:absolute;top:12;width:45;left:160;z-index:20" class="bsuccess" >검색</button>
-
+  
 
 <div id="menu_wrap" class="bg_white" style="border:1px solid #919191;border-radius:10px;">
     
@@ -2346,39 +2460,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     
 </script>
   
-    <script>   
- $('#searchBtn').click(function(){
-		// 버튼을 click했을때
-		
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-		
-		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch($('#keyword').val(), function(result, status) {
-	
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		        
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
-	
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">장소</div>'
-		        });
-		        infowindow.open(map, marker);
-	
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        map.setCenter(coords);
-		    } 
-		});  
-	});
-         </script>   
-
  <script>   
      // 2-2. input:text 복사
     document.getElementById("btn_input_copy").onclick = function(){
